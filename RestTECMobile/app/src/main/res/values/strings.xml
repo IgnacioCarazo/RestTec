@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">RestTEC-Mobile</string>
+    <string name="user">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="Register">Registro</string>
+    <string name="UserName">Nombre</string>
+    <string name="firstLastName">Primer Apellido</string>
+    <string name="secondLastName">Segundo Apellido</string>
+    <string name="province">Provincia</string>
+    <string name="canton">Cantón</string>
+    <string name="district">Distrito</string>
+    <string name="birth">Nacimiento</string>
+    <string name="telephone">Teléfono</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="ID">Cédula</string>
+    <string name="title_activity_main">Principal</string>
+    <string name="title_activity_carro_compra">CarroCompra</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="Confirmar">Confirmar Pedido</string>
+
+</resources>
