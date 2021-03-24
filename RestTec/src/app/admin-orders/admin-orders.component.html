@@ -14,7 +14,7 @@
         style="cursor: pointer"
         *ngFor="let order of orders; let i = index"
       >
-      <h4 class="list-group-item-heading">Orden {{ order.id }}</h4>
+      <h4 class="list-group-item-heading">Pedido {{ order.id }}</h4>
       <p class="list-group-item-text">Chef: {{ order.chef }}</p>
       <p class="list-group-item-text">Plato: {{ order.recipes[0].name }}</p>
       <p class="list-group-item-text">Asignada: {{ order.assigned }}</p>
