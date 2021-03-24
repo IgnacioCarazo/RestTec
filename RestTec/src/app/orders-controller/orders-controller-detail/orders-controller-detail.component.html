@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xs-12">
+        <ul class="list-group">
+            <h1 class="list-group-item-heading">Pedido {{ order.id }}</h1>
+            <h5 class="list-group-item-text">Chef: {{ order.chef }}</h5>
+            <h5 class="list-group-item-text">Tiempo: {{ order.time }} minutos</h5>
+
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn btn-success"  (click)="onUpdateOrder()">Completar Pedido</div>
+    </div>
+</div>
+
+  

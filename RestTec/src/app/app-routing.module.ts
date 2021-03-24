@@ -13,9 +13,13 @@ import { OrdersComponent } from './orders/orders.component';
 import { ReportsComponent } from './reports/reports.component';
 import { LoginComponent } from './login/login.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
+import { OrdersDetailComponent } from './orders/orders-detail/orders-detail.component';
+import { OrdersControllerComponent } from './orders-controller/orders-controller.component';
+import { OrdersControllerDetailComponent } from './orders-controller/orders-controller-detail/orders-controller-detail.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+
   {
     path: 'recipes',
     component: RecipesComponent,
@@ -35,6 +39,7 @@ const appRoutes: Routes = [
       }
     ]
   },
+
   { path: 'recipe-type', component: RecipeTypeComponent,
     children: [
       { path: '', component: RecipeTypeStartComponent },
@@ -48,10 +53,25 @@ const appRoutes: Routes = [
         component: RecipeTypeEditComponent
       }
     ] },
-  { path: 'orders', component: OrdersComponent },
+
+  { path: 'orders', component: OrdersComponent, 
+    children: [
+      {
+        path: ':id',
+        component: OrdersDetailComponent
+      },
+
+    ]},
+  { path: 'orders-controller', component: OrdersControllerComponent,
+  children: [
+    {
+      path: ':id',
+      component: OrdersControllerDetailComponent
+    },
+  ] },
   { path: 'reports', component: ReportsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin-orders', component: AdminOrdersComponent }
+  { path: 'admin-orders', component: AdminOrdersComponent },
 
 
 

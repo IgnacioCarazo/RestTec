@@ -22,13 +22,18 @@ import { RecipeTypeEditComponent } from './recipe-type/recipe-type-edit/recipe-t
 import { RecipeTypeStartComponent } from './recipe-type/recipe-type-start/recipe-type-start.component';
 import { RecipeTypeService } from './recipe-type/recipe-type.service';
 import { OrdersComponent } from './orders/orders.component';
-import { OrderControllerComponent } from './orders/order-controller/order-controller.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportsService } from './reports/reports.service';
-import { OrdersListComponent } from './orders/orders-list/orders-list.component';
 import { LoginComponent } from './login/login.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { OrdersService } from './orders/orders.service';
+import { OrdersListComponent } from './orders/orders-list/orders-list.component';
+import { OrdersDetailComponent } from './orders/orders-detail/orders-detail.component';
+import { OrdersItemComponent } from './orders/orders-list/orders-item/orders-item.component';
+import { OrdersControllerComponent } from './orders-controller/orders-controller.component';
+import { OrdersControllerDetailComponent } from './orders-controller/orders-controller-detail/orders-controller-detail.component';
+import { OrdersControllerListComponent } from './orders-controller/orders-controller-list/orders-controller-list.component';
+import { OrdersControllerItemComponent } from './orders-controller/orders-controller-list/orders-controller-item/orders-controller-item.component';
 
 @NgModule({
   declarations: [
@@ -48,11 +53,16 @@ import { OrdersService } from './orders/orders.service';
     RecipeTypeEditComponent,
     RecipeTypeStartComponent,
     OrdersComponent,
-    OrderControllerComponent,
     ReportsComponent,
-    OrdersListComponent,
     LoginComponent,
     AdminOrdersComponent,
+    OrdersListComponent,
+    OrdersDetailComponent,
+    OrdersItemComponent,
+    OrdersControllerComponent,
+    OrdersControllerDetailComponent,
+    OrdersControllerListComponent,
+    OrdersControllerItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Order } from 'src/app/orders/order.model';
+import { OrdersService } from 'src/app/orders/orders.service';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
-import { Order } from '../order.model';
-import { OrdersService } from '../orders.service';
 
 @Component({
-  selector: 'app-orders-list',
-  templateUrl: './orders-list.component.html',
-  styleUrls: ['./orders-list.component.css']
+  selector: 'app-orders-controller-list',
+  templateUrl: './orders-controller-list.component.html',
+  styleUrls: ['./orders-controller-list.component.css']
 })
-export class OrdersListComponent implements OnInit, OnDestroy {
+export class OrdersControllerListComponent implements OnInit {
   orders: Order[];
   subscription: Subscription;
 
@@ -27,7 +27,7 @@ export class OrdersListComponent implements OnInit, OnDestroy {
           this.orders = orders;
         }
       );
-    this.orders = this.ordersService.getAllOrders();
+    this.orders = this.ordersService.getOrdersAssigned();
   }
 
 
@@ -37,11 +37,12 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   onSaveData() {
-    this.dataStorageService.storeRecipes();
+    console.log("Save");
   }
 
   onFetchData() {
-    this.dataStorageService.fetchRecipes().subscribe();
+    console.log("Fetch");
   }
+
 
 }
