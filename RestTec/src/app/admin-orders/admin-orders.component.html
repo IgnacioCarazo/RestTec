@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-12">
+      <div type="button" class="btn btn-primary" (click)="onFetchData()">Actualizar</div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+  <div class="col-xs-10">
+    <h3>Pedidos Activos</h3>
+    <hr>
+    <ul class="list-group">
+      <a
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let order of orders; let i = index"
+      >
+      <h4 class="list-group-item-heading">Orden {{ order.id }}</h4>
+      <p class="list-group-item-text">Chef: {{ order.chef }}</p>
+      <p class="list-group-item-text">Plato: {{ order.recipes[0].name }}</p>
+      <p class="list-group-item-text">Asignada: {{ order.assigned }}</p>
+
+      </a>
+    </ul>
+  </div>
+</div>

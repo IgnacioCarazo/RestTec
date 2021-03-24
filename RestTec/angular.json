@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "RestTec": {
+    "resttec-app-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/RestTec",
+            "outputPath": "dist/resttec-app-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -61,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "RestTec:build"
+            "browserTarget": "resttec-app-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "RestTec:build:production"
+              "browserTarget": "resttec-app-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "RestTec:build"
+            "browserTarget": "resttec-app-angular:build"
           }
         },
         "test": {
@@ -109,16 +110,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "RestTec:serve"
+            "devServerTarget": "resttec-app-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "RestTec:serve:production"
+              "devServerTarget": "resttec-app-angular:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "RestTec"
+  "defaultProject": "resttec-app-angular"
 }

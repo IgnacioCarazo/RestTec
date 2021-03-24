@@ -1,0 +1,105 @@
+<div *ngIf="isAdmin">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">RestTec</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li routerLinkActive="active"><a routerLink="/admin-orders" *ngIf="login">Pedidos Activos</a></li>
+                    <li routerLinkActive="active" ><a routerLink="/recipes" *ngIf="login">Gestion del Menu</a></li>
+                    <li routerLinkActive="active" ><a routerLink="/recipe-type" *ngIf="login">Gestion de Tipos de Platos</a></li>
+                    <li routerLinkActive="active"><a routerLink="/reports" *ngIf="login">Vista de Reportes</a></li>
+                    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)"> 
+                        <div class="form-group" *ngIf="!login">
+                            <label for="email">E-Mail</label>
+                            <input 
+                            type="email" 
+                            id="email"
+                            class="form-control"
+                            ngModel
+                            name="email"
+                            required
+                            email>
+                        </div>
+                        <div class="form-group" *ngIf="!login">
+                            <label for="password">Password</label>
+                            <input 
+                            type="password" 
+                            id="password"
+                            class="form-control"
+                            ngModel
+                            name="password"
+                            required
+                            minlength="6">
+                        </div>
+                        <div *ngIf="!login">
+                            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">Login</button>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+
+                    <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a style="cursor: pointer;" (click)="changeView()" *ngIf="!login">Cambiar a Chef</a></li>
+                            <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div *ngIf="!isAdmin">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">RestTec</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li routerLinkActive="active" ><a routerLink="/orders" *ngIf="login">Pedidos</a></li>
+                    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)"> 
+                        <div class="form-group" *ngIf="!login">
+                            <label for="email">E-Mail</label>
+                            <input 
+                            type="email" 
+                            id="email"
+                            class="form-control"
+                            ngModel
+                            name="email"
+                            required
+                            email>
+                        </div>
+                        <div class="form-group" *ngIf="!login">
+                            <label for="password">Password</label>
+                            <input 
+                            type="password" 
+                            id="password"
+                            class="form-control"
+                            ngModel
+                            name="password"
+                            required
+                            minlength="6">
+                        </div>
+                        <div *ngIf="!login">
+                            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">Login</button>
+                        </div>
+                    </form>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" appDropdown>
+                        <a class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a style="cursor: pointer;" (click)="changeView()" *ngIf="!login">Cambiar a Admin</a></li>
+                            <li><a style="cursor: pointer;" (click)="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
