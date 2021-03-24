@@ -25,5 +25,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="Confirmar">Confirmar Pedido</string>
+    <string name="feedback">Tiene algun comentario sobre el pedido?</string>
+    <string name="enviarFeedback">Enviar Feedback</string>
+    <string name="TituloTiempo">El tiempo de espera para su pedido es..</string>
+    <string name="tiempo">Tiempo de Espera</string>
 
 </resources>

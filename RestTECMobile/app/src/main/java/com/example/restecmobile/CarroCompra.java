@@ -34,7 +34,6 @@ public class CarroCompra extends AppCompatActivity {
     AdaptadorCarroCompra adaptador;
     RecyclerView rvListaCarro;
     TextView tvTotal;
-    RequestQueue mQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +45,6 @@ public class CarroCompra extends AppCompatActivity {
         adaptador = new AdaptadorCarroCompra(CarroCompra.this, carroCompra, tvTotal);
         rvListaCarro.setAdapter(adaptador);
         Button confirmaPedido = (Button)findViewById(R.id.botonConfirma);
-        mQueue = Volley.newRequestQueue(this);
         confirmaPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +52,11 @@ public class CarroCompra extends AppCompatActivity {
                     Producto pedido = carroCompra.get(i);
                     String nombrePedido = pedido.getNOM_PRODUCTO();
                     String detallePedido = pedido.getDESCRIPCION();
-                    jsonParse(nombrePedido,detallePedido);
+                    Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
+                    intent.putExtra("Espera de pedido", (Serializable) carroCompra);
+                    CarroCompra.this.startActivity(intent);
+                    CarroCompra.this.finish();
+                    //jsonParse(nombrePedido,detallePedido);
                 }
             }
         });
@@ -83,7 +85,7 @@ public class CarroCompra extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }){
             @Override
