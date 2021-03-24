@@ -15,6 +15,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -71,15 +75,19 @@ public class CarroCompra extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        /*
                         try {
+                            JSONObject jsonRespuesta = new JSONObject( response);
+                            int time = jsonRespuesta.getInt("TimeFinish");
+                            int orderId = jsonRespuesta.getInt("OrderID");
+                            Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
+                            intent.putExtra("Time",time);
+                            intent.putExtra("OrderID",orderId);
+                            intent.putExtra("Espera de pedido", (Serializable) carroCompra);
+                            CarroCompra.this.startActivity(intent);
+                            CarroCompra.this.finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
-                        }*/
-                        Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
-                        intent.putExtra("Espera de pedido", (Serializable) carroCompra);
-                        CarroCompra.this.startActivity(intent);
-                        CarroCompra.this.finish();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

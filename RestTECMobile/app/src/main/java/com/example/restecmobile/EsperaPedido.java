@@ -39,15 +39,18 @@ public class EsperaPedido extends AppCompatActivity {
     private Button buttonFeedback;
     private RatingBar ratingBar;
     public int rate=0;
-    public int time=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_espera_pedido);
         tvCantidadTiempo = findViewById(R.id.tvCantidadTiempo);
         buttonFeedback =findViewById(R.id.botonFeedback);
+        Intent i = this.getIntent();
+        int time= i.getIntExtra("Time",0);
+        int orderID= i.getIntExtra("OrderID",0);
+        tvCantidadTiempo.setText(time+" mins");
         ratingBar=findViewById(R.id.ratingBar);
-        jsonParseTime();
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -58,36 +61,12 @@ public class EsperaPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(rate >0 && time==0) {
-                    jsonParseFeedback();
+                    jsonParseFeedback(orderID);
                 }
             }
         });
     }
-    private void jsonParseTime(){String JSON_URL = URL_Producto;
-        StringRequest stringRequestTime = new StringRequest(Request.Method.GET, JSON_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            time = jsonObject.getInt("Time");
-                            tvCantidadTiempo.setText(time);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequestTime);
-    }
-    private void jsonParseFeedback(){
+    private void jsonParseFeedback(int orderID){
         String JSON_URL = URL_Producto;
         Date fecha= Calendar.getInstance().getTime();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
@@ -115,6 +94,7 @@ public class EsperaPedido extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
                 params.put("Fecha", String.valueOf(fecha));
+                params.put("OrderID", String.valueOf(orderID));
                 params.put("Calificacion",String.valueOf(rate));
                 return params;
             }
