@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-xs-12">
+      <div type="button" class="btn btn-primary" (click)="onFetchData()">Actualizar</div>
+      <div type="button" class="btn btn-warning" style="margin-left: 15px;" (click)="onSaveData()">Guardar datos</div>
+    </div>
+  </div>
+  <hr>
+<div class="row">
+    <div class="col-xs-10">
+      <h3>Top 10 Platos Vendidos</h3>
+      <hr>
+      <ul class="list-group">
+        <a
+          class="list-group-item"
+          style="cursor: pointer"
+          *ngFor="let recipe of recipesSold; let i = index"
+        >
+          {{ recipe }}
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10">
+      <h3>Top 10 Platos con mas Ganancia</h3>
+      <hr>
+      <ul class="list-group">
+        <a
+          class="list-group-item"
+          style="cursor: pointer"
+          *ngFor="let recipe of recipesProfit; let i = index"
+        >
+          {{ recipe }}
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10">
+      <h3>Top 10 Platos con Mejor Feedback</h3>
+      <hr>
+      <ul class="list-group">
+        <a
+          class="list-group-item"
+          style="cursor: pointer"
+          *ngFor="let recipe of recipesFeedback; let i = index"
+        >
+          {{ recipe }}
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-10">
+      <h3>Top 10 Clientes</h3>
+      <hr>
+      <ul class="list-group">
+        <a
+          class="list-group-item"
+          style="cursor: pointer"
+          *ngFor="let client of clients; let i = index"
+        >
+          {{ client }}
+        </a>
+      </ul>
+    </div>
+  </div>
+  
