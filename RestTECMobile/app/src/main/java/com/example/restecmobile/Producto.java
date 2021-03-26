@@ -6,25 +6,30 @@ import java.io.Serializable;
  * @author JosephJ
  */
 public class Producto implements Serializable {
-    private String ID_PRODUCTO;
-    private String NOM_PRODUCTO;
-    private String DESCRIPCION;
-    private double PRECIO;
-    public Producto(String idProducto, String nomProducto, String descripcion, double precio){
-        this.ID_PRODUCTO = idProducto;
-        this.NOM_PRODUCTO = nomProducto;
-        this.DESCRIPCION = descripcion;
-        this.PRECIO = precio;
+    private String recipeName;
+    private String ingredients;
+    private int calories;
+    private int prepareTime;
+    private double price;
+    public Producto(String recipeName, String ingredients, int calories, int prepareTime, double precio){
+        this.recipeName = recipeName;
+        this.ingredients = ingredients;
+        this.calories = calories;
+        this.prepareTime = prepareTime;
+        this.price = precio;
     }
-    public String getID_PRODUCTO() { return ID_PRODUCTO; }
-    public void setID_PRODUCTO(String ID_PRODUCTO) { this.ID_PRODUCTO = ID_PRODUCTO; }
+    public String getRecipeName() { return recipeName; }
+    public void setRecipeName(String recipeName) { this.recipeName = recipeName; }
 
-    public String getNOM_PRODUCTO() { return NOM_PRODUCTO; }
-    public void setNOM_PRODUCTO(String NOM_PRODUCTO) { this.NOM_PRODUCTO = NOM_PRODUCTO; }
+    public String getIngredients() { return ingredients; }
+    public void setIngredients(String ingredients) { this.ingredients = ingredients; }
 
-    public String getDESCRIPCION() { return DESCRIPCION; }
-    public void setDESCRIPCION(String DESCRIPCION) { this.DESCRIPCION = DESCRIPCION; }
+    public int getCalories() { return calories;}
+    public void setCalories(int calories) { this.calories = calories; }
 
-    public double getPRECIO() { return PRECIO; }
-    public void setPRECIO(double PRECIO) { this.PRECIO = PRECIO; }
+    public int getPrepareTime() { return prepareTime; }
+    public void setPrepareTime(int prepareTime) { this.prepareTime = prepareTime; }
+
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 }

@@ -22,7 +22,7 @@ public class AdaptadorCarroCompra extends RecyclerView.Adapter<AdaptadorCarroCom
         this.carroCompra = carroCompra;
         this.tvTotal = tvTotal;
         for (int i = 0; i < carroCompra.size(); i++) {
-            total = total + Double.parseDouble("" + carroCompra.get(i).getPRECIO());
+            total = total + Double.parseDouble("" + carroCompra.get(i).getPrice());
         }
         tvTotal.setText("" + total);
     }
@@ -42,9 +42,9 @@ public class AdaptadorCarroCompra extends RecyclerView.Adapter<AdaptadorCarroCom
      */
     @Override
     public void onBindViewHolder(@NonNull final ProductosViewHolder productosViewHolder, final int i) {
-        productosViewHolder.tvNomProducto.setText(carroCompra.get(i).getNOM_PRODUCTO());
-        productosViewHolder.tvDescripcion.setText(carroCompra.get(i).getDESCRIPCION());
-        productosViewHolder.tvPrecio.setText(" " + carroCompra.get(i).getPRECIO());
+        productosViewHolder.tvNomProducto.setText(carroCompra.get(i).getRecipeName());
+        productosViewHolder.tvDescripcion.setText(carroCompra.get(i).getIngredients());
+        productosViewHolder.tvPrecio.setText(" " + carroCompra.get(i).getPrice());
     }
     /**
      * @return tamaño de lista de productos

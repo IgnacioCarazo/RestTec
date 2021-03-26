@@ -8,22 +8,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import static com.example.restecmobile.URLs.URL_Producto;
 /**
  * @class CarroCompra
  * Configura la vista 'activity_carro_compras'
@@ -54,8 +49,8 @@ public class CarroCompra extends AppCompatActivity {
             public void onClick(View v) {
                 for(int i = 0 ;i  < carroCompra.size(); i++){
                     Producto pedido = carroCompra.get(i);
-                    String nombrePedido = pedido.getNOM_PRODUCTO();
-                    String detallePedido = pedido.getDESCRIPCION();
+                    String recipeName = pedido.getRecipeName();
+                    double price = pedido.getPrice();
                     Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
                     intent.putExtra("Espera de pedido", (Serializable) carroCompra);
                     CarroCompra.this.startActivity(intent);
@@ -65,47 +60,39 @@ public class CarroCompra extends AppCompatActivity {
             }
         });
     }
-    /**
-     * Manejo de POST de los platillos seleccionados
-     */
-    private void jsonParse(String nombrePedido, String detallePedido){
-        String JSON_URL = URL_Producto;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject jsonRespuesta = new JSONObject( response);
-                            int time = jsonRespuesta.getInt("TimeFinish");
-                            int orderId = jsonRespuesta.getInt("OrderID");
-                            Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
-                            intent.putExtra("Time",time);
-                            intent.putExtra("OrderID",orderId);
-                            intent.putExtra("Espera de pedido", (Serializable) carroCompra);
-                            CarroCompra.this.startActivity(intent);
-                            CarroCompra.this.finish();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("Nombre",nombrePedido);
-                params.put("Descripcion",detallePedido);
-                return params;
-            }
-        };
+    private void jsonParse(String recipeName, double price){
+        String postUrl = "http://localhost:5001";
+        List listavacia = new ArrayList();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("recipeName", recipeName);
+            postData.put("price", price);
+            postData.put("calories", 0000000);
+            postData.put("prepareTime", 0000000);
+            postData.put("ingredients", listavacia);
+            postData.put("finishTime", "00:00");
+            postData.put("type", listavacia);
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
+                intent.putExtra("Espera de pedido", (Serializable) carroCompra);
+                CarroCompra.this.startActivity(intent);
+                CarroCompra.this.finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();;
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }
+
 

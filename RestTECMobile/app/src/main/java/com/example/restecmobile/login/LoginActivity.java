@@ -11,16 +11,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.restecmobile.MainActivity;
 import com.example.restecmobile.R;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.example.restecmobile.URLs.URL_Usuario;
+import java.util.Calendar;
+import java.util.Date;
 /**
  * @class LoginActivity
  * Crea el login, busca los ids de la vista, obtiene sus botones y da la funcion al dar click
@@ -67,14 +65,17 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Manejo del solicitud POST Rest por parte del login
      */
-    private void jsonParse(String correo, String clave){
-        String JSON_URL = URL_Usuario;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
-                new Response.Listener<String>() {
+    private void parseJSON(String correo,String clave){
+        String postUrl = getString(R.string.URL_SOURCE)+correo+getString(R.string.slash)+clave;
+        Date fecha= Calendar.getInstance().getTime();
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, postUrl , null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                         try {
-                            JSONObject object=new JSONObject(response);
+                            JSONObject object=response;
                             if(!object.getBoolean("success")){
                                 Intent principal = new Intent(LoginActivity.this, MainActivity.class);
                                 LoginActivity.this.startActivity(principal);
@@ -83,30 +84,15 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
-                        /*
-                        Intent principal = new Intent(LoginActivity.this, MainActivity.class);
-                        LoginActivity.this.startActivity(principal);
-                        LoginActivity.this.finish();
-                        */
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                }){
+                }, new Response.ErrorListener() {
             @Override
-            protected Map<String, String> getParams()  {
-                Map<String,String>parms=new HashMap<String, String>();
-                parms.put("email",correo);
-                parms.put("password",clave);
-                return parms;
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }
