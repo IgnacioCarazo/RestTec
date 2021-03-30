@@ -40,19 +40,30 @@ public class MainActivity extends AppCompatActivity {
         rvListaProductos = findViewById(R.id.rvListaProductos);
         rvListaProductos.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
         //parseJSON();
-        listaProductos.add(new Producto("Pasta","Esto y aquello",100,20,10000));
-        listaProductos.add(new Producto("Ensalada","Esto y aquello",10,10,20000));
-        listaProductos.add(new Producto("Sopa","Esto y aquello",200,200,5000));
-        listaProductos.add(new Producto("Hamburguesa","Esto y aquello",1000,25,20000));
+        Ingredient Ingrediente = new Ingredient("arroz",1);
+        Ingredient Ingrediente1 = new Ingredient("carne",2);
+        Ingredient Ingrediente2 = new Ingredient("vegetales",3);
+        Ingredient Ingrediente3 = new Ingredient("agua",10);
+        ArrayList listaIngrediets = new ArrayList();
+        listaIngrediets.add(Ingrediente);
+        listaIngrediets.add(Ingrediente1);
+        listaIngrediets.add(Ingrediente2);
+        listaIngrediets.add(Ingrediente3);
+        RecipeType recipeType1 = new RecipeType("almuerzo","Almuerzo a la carte");
+        listaProductos.add(new Producto("Gallo Pinto",2200,300,-1,listaIngrediets,"10:00",recipeType1));
+        listaProductos.add(new Producto("Casado",2100,500,-1,listaIngrediets,"11:20",recipeType1));
+        listaProductos.add(new Producto("Sopa de Mondongo",3300,600,-1,listaIngrediets,"10:00",recipeType1));
+        listaProductos.add(new Producto("Porcion de pollo",2100,300,-1,listaIngrediets,"10:50",recipeType1));
+        listaProductos.add(new Producto("Tortilla con queso",1200,400,-1,listaIngrediets,"11:00",recipeType1));
+        listaProductos.add(new Producto("Hamburguesa y papas",3200,500,-1,listaIngrediets,"9:00",recipeType1));
         adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);
         rvListaProductos.setAdapter(adaptador);
     }
     /**
-     * Manejo de Solicitud de productos disponibles en el REST
+     * Por medio de un GET se hace la solicitud de los platillos disponibles
      */
-    private void parseJSON(int orderID){
+    private void parseJSON(){
         String postUrl = "http://localhost:5001";
-        Date fecha= Calendar.getInstance().getTime();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, postUrl , null,
                 new Response.Listener<JSONObject>() {
@@ -64,7 +75,17 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsonArray = obj.getJSONArray("recipes");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject productos = jsonArray.getJSONObject(i);
-                        Producto producto = new Producto(productos.getString("recipeName"),productos.getString("ingredients"),productos.getInt("calories"),productos.getInt("calories"),productos.getDouble("Monto"));
+                        JSONArray jsonIngredientes = obj.getJSONArray("ingredientes");
+                        List<Ingredient> descripcionIngredientes = null;
+                        for(int k=0; k< jsonIngredientes.length();k++){
+                            JSONObject ingredienteHeader = jsonArray.getJSONObject(i);
+                            String ingredientName = ingredienteHeader.getString("name");
+                            int ingredientAmount = ingredienteHeader.getInt("amount");
+                            Ingredient ingredient = new Ingredient(ingredientName,ingredientAmount);
+                            descripcionIngredientes.add(ingredient);
+                        }
+                        RecipeType recipeType = new RecipeType(productos.getString("name"),productos.getString("descripcion"));
+                        Producto producto = new Producto(productos.getString("recipeName"),productos.getInt("price"),productos.getInt("calories"),productos.getInt("prepareTime"),descripcionIngredientes,productos.getString("finishTime"),recipeType);
                         listaProductos.add(producto);
                     }
                     adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);

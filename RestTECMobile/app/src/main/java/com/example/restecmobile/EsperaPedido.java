@@ -56,6 +56,11 @@ public class EsperaPedido extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *  Por medio de un POST permite enviar el feedback y volver a la ventana principal
+     * @param orderID
+     */
     private void jsonParseFeedback(int orderID){
         String postUrl = "http://localhost:5001";
         Date fecha= Calendar.getInstance().getTime();

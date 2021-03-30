@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 import java.util.List;
 /**
  * @class AdaptadorCarroCompras
@@ -43,7 +45,13 @@ public class AdaptadorCarroCompra extends RecyclerView.Adapter<AdaptadorCarroCom
     @Override
     public void onBindViewHolder(@NonNull final ProductosViewHolder productosViewHolder, final int i) {
         productosViewHolder.tvNomProducto.setText(carroCompra.get(i).getRecipeName());
-        productosViewHolder.tvDescripcion.setText(carroCompra.get(i).getIngredients());
+        String descripcionIngredientes = "";
+        for(int k=0; k<carroCompra.get(i).getIngredients().size();k++){
+            String ingredientName = carroCompra.get(i).getIngredients().get(k).getName();
+            int ingredientAmount = carroCompra.get(i).getIngredients().get(k).getAmount();
+            descripcionIngredientes = descripcionIngredientes+ "Ingrediente: "+ ingredientName +", cantidad: " + ingredientAmount+ ", ";
+        }
+        productosViewHolder.tvDescripcion.setText(descripcionIngredientes);
         productosViewHolder.tvPrecio.setText(" " + carroCompra.get(i).getPrice());
     }
     /**

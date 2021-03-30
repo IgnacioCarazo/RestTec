@@ -49,10 +49,16 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     @Override
     public void onBindViewHolder(@NonNull final ProductosViewHolder productosViewHolder, final int i) {
         productosViewHolder.tvNomProducto.setText(listaProductos.get(i).getRecipeName());
-        productosViewHolder.tvIngredientes.setText(listaProductos.get(i).getIngredients());
-        productosViewHolder.tvPrecio.setText("" + listaProductos.get(i).getPrice() + " Colones");
-        productosViewHolder.tvCalories.setText("" + listaProductos.get(i).getCalories() + " Calorias");
-        productosViewHolder.tvPrepareTime.setText("" + listaProductos.get(i).getPrepareTime() + " Minutos");
+        String Ingredientes = "";
+        for(int k=0; k<listaProductos.get(i).getIngredients().size();k++){
+            String ingredientName = listaProductos.get(i).getIngredients().get(k).getName();
+            int ingredientAmount = listaProductos.get(i).getIngredients().get(k).getAmount();
+            Ingredientes = Ingredientes + "Ingrediente: "+ ingredientName +", cantidad: " + ingredientAmount+ ", ";
+        }
+        productosViewHolder.tvIngredientes.setText(Ingredientes);
+        productosViewHolder.tvPrecio.setText("" + listaProductos.get(i).getPrice() + " colones");
+        productosViewHolder.tvCalories.setText("" + listaProductos.get(i).getCalories() + " calorias");
+        productosViewHolder.tvPrepareTime.setText("Tiempo de preparacion: " + listaProductos.get(i).getPrepareTime() );
         productosViewHolder.cbCarro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
