@@ -1,35 +1,23 @@
 package com.example.restecmobile;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Magnifier;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.restecmobile.login.LoginActivity;
-import com.example.restecmobile.login.RegisterActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.example.restecmobile.URLs.URL_Producto;
 /**
  * @class EsperaPedido
  * Clase para mostrar el tiempo que falta para completar el pedido
@@ -39,7 +27,6 @@ public class EsperaPedido extends AppCompatActivity {
     private Button buttonFeedback;
     private RatingBar ratingBar;
     public int rate=0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,45 +48,44 @@ public class EsperaPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(rate >0 && time==0) {
-                    jsonParseFeedback(orderID);
+                    //jsonParseFeedback(orderID);
+                    Intent principal = new Intent(EsperaPedido.this, MainActivity.class);
+                    EsperaPedido.this.startActivity(principal);
+                    EsperaPedido.this.finish();
                 }
             }
         });
     }
+
+    /**
+     *  Por medio de un POST permite enviar el feedback y volver a la ventana principal
+     * @param orderID
+     */
     private void jsonParseFeedback(int orderID){
-        String JSON_URL = URL_Producto;
+        String postUrl = "http://localhost:5001";
         Date fecha= Calendar.getInstance().getTime();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        /*
-                        try {
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
-                        Intent principal = new Intent(EsperaPedido.this, MainActivity.class);
-                        EsperaPedido.this.startActivity(principal);
-                        EsperaPedido.this.finish();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<>();
-                params.put("Fecha", String.valueOf(fecha));
-                params.put("OrderID", String.valueOf(orderID));
-                params.put("Calificacion",String.valueOf(rate));
-                return params;
-            }
-        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("fecha", fecha);
+            postData.put("orderId", orderID);
+            postData.put("feedback", String.valueOf(rate));
+        } catch (JSONException e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Intent principal = new Intent(EsperaPedido.this, MainActivity.class);
+                EsperaPedido.this.startActivity(principal);
+                EsperaPedido.this.finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }

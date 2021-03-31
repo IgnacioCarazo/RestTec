@@ -6,19 +6,19 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import static com.example.restecmobile.URLs.URL_Producto;
 /**
  * @class MainActivity
  * En esta clase se habilitan los productos posibles a seleccionar asi como el boton que cofirma en el envio de estos
@@ -35,98 +35,71 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //final TextView mensaje = (TextView)findViewById(R.id.Mensaje);
-        //Intent i = this.getIntent();
-        //String nombre = i.getStringExtra("Nombre");
-        //mensaje.setText(mensaje.getText()+" "+nombre);
         tvCantProductos = findViewById(R.id.tvCantProductos);
         btnVerCarro = findViewById(R.id.btnVerCarro);
         rvListaProductos = findViewById(R.id.rvListaProductos);
         rvListaProductos.setLayoutManager(new GridLayoutManager(MainActivity.this,1));
         //parseJSON();
-        listaProductos.add(new Producto("1","Producto1","Este producto es prometedor",10000));
-        listaProductos.add(new Producto("2","Producto2","Este producto es masomenos prometedor",7000));
-        listaProductos.add(new Producto("3","Producto3","Este producto es cool",3000));
-        listaProductos.add(new Producto("4","Producto4","Este producto es una picha",20));
+        Ingredient Ingrediente = new Ingredient("arroz",1);
+        Ingredient Ingrediente1 = new Ingredient("carne",2);
+        Ingredient Ingrediente2 = new Ingredient("vegetales",3);
+        Ingredient Ingrediente3 = new Ingredient("agua",10);
+        ArrayList listaIngrediets = new ArrayList();
+        listaIngrediets.add(Ingrediente);
+        listaIngrediets.add(Ingrediente1);
+        listaIngrediets.add(Ingrediente2);
+        listaIngrediets.add(Ingrediente3);
+        RecipeType recipeType1 = new RecipeType("almuerzo","Almuerzo a la carte");
+        listaProductos.add(new Producto("Gallo Pinto",2200,300,-1,listaIngrediets,"10:00",recipeType1));
+        listaProductos.add(new Producto("Casado",2100,500,-1,listaIngrediets,"11:20",recipeType1));
+        listaProductos.add(new Producto("Sopa de Mondongo",3300,600,-1,listaIngrediets,"10:00",recipeType1));
+        listaProductos.add(new Producto("Porcion de pollo",2100,300,-1,listaIngrediets,"10:50",recipeType1));
+        listaProductos.add(new Producto("Tortilla con queso",1200,400,-1,listaIngrediets,"11:00",recipeType1));
+        listaProductos.add(new Producto("Hamburguesa y papas",3200,500,-1,listaIngrediets,"9:00",recipeType1));
         adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);
         rvListaProductos.setAdapter(adaptador);
     }
     /**
-     * Manejo de Solicitud de productos disponibles en el REST
+     * Por medio de un GET se hace la solicitud de los platillos disponibles
      */
     private void parseJSON(){
-        String JSON_URL = URL_Producto;//https://201.202.14.87:3000/Producto/
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject obj = new JSONObject(response);
-                            JSONArray jsonArray = obj.getJSONArray("Productos");
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject productos = jsonArray.getJSONObject(i);
-                                Producto producto = new Producto(productos.getString("ID"),productos.getString("Nombre"),productos.getString("Descripcion"),productos.getDouble("Monto"));
-                                listaProductos.add(producto);
-                            }
-                            adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);
-                            rvListaProductos.setAdapter(adaptador);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+        String postUrl = "http://localhost:5001";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, postUrl , null,
+                new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    JSONObject obj = response;
+                    JSONArray jsonArray = obj.getJSONArray("recipes");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject productos = jsonArray.getJSONObject(i);
+                        JSONArray jsonIngredientes = obj.getJSONArray("ingredientes");
+                        List<Ingredient> descripcionIngredientes = null;
+                        for(int k=0; k< jsonIngredientes.length();k++){
+                            JSONObject ingredienteHeader = jsonArray.getJSONObject(i);
+                            String ingredientName = ingredienteHeader.getString("name");
+                            int ingredientAmount = ingredienteHeader.getInt("amount");
+                            Ingredient ingredient = new Ingredient(ingredientName,ingredientAmount);
+                            descripcionIngredientes.add(ingredient);
+                        }
+                        RecipeType recipeType = new RecipeType(productos.getString("name"),productos.getString("descripcion"));
+                        Producto producto = new Producto(productos.getString("recipeName"),productos.getInt("price"),productos.getInt("calories"),productos.getInt("prepareTime"),descripcionIngredientes,productos.getString("finishTime"),recipeType);
+                        listaProductos.add(producto);
+                    }
+                    adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);
+                    rvListaProductos.setAdapter(adaptador);
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }
-  /*
-    private void parseJSON(){
-        String JSON_URL = "https://simplifiedcoding.net/demos/view-flipper/heroes.php";
-        //creating a string request to send request to the url
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            //getting the whole json object from the response
-                            JSONObject obj = new JSONObject(response);
-                            //we have the array named hero inside the object
-                            //so here we are getting that json array
-                            JSONArray heroArray = obj.getJSONArray("heroes");
-                            //now looping through all the elements of the json array
-                            for (int i = 0; i < heroArray.length(); i++) {
-                                //getting the json object of the particular index inside the array
-                                JSONObject heroObject = heroArray.getJSONObject(i);
-
-                                //creating a hero object and giving them the values from json object
-                                Producto hero = new Producto("ID1",heroObject.getString("name"), heroObject.getString("imageurl"),2000);
-                                //adding the hero to herolist
-                                listaProductos.add(hero);
-                            }
-                            adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras);
-                            rvListaProductos.setAdapter(adaptador);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //displaying the error in toast if occurrs
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-        //creating a request queue
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        //adding the string request to request queue
-        requestQueue.add(stringRequest);
-    }
-     */
