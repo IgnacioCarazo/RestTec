@@ -1,27 +1,31 @@
 [
+    
     {
-        "email": "mario@gmail.com",
-        "password": "174",
-        "access": true
-    },
-    {
+        "name": "Haziel",
         "email": "haziel@gmail.com",
-        "password": "234",
-        "access": false
+        "password": "haziel123",
+        "access": true,
+        "credentials": true
     },
     {
-        "email": "nacho@gmail.com",
-        "password": "467",
-        "access": true
-    },
-    {
+        "name": "Joseph",
         "email": "joseph@gmail.com",
-        "password": "1234",
-        "access": false
+        "password": "joseph123",
+        "access": false,
+        "credentials": true
     },
     {
+        "name": "Ignacio",
+        "email": "ignacio@gmai.com",
+        "password": "ignacio123",
+        "access": true,
+        "credentials": true
+    },
+    {
+        "name": "Yasuo",
         "email": "yasuo@gmail.com",
-        "password": "777",
-        "access": true
+        "password": "yasuo123",
+        "access": false,
+        "credentials": true
     }
 ]

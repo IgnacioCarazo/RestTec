@@ -21,5 +21,7 @@ namespace WebApp.Api.Model
         public string finishTime { get; set; }
         //tipo plato
         public RecipeType type { get; set; }
+        //url imagen del platino
+        public string imagePath { get; set; }
     }
 }

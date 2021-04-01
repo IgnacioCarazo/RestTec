@@ -13,6 +13,14 @@ namespace WebApp.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        
+        List<User> users = new List<User>() { 
+            new User(){name="Haziel",email="haziel@gmail.com",password="haziel123",access=true,credentials=true},
+            new User(){name="Joseph",email="joseph@gmail.com",password="joseph123",access=false},
+            new User(){name="Ignacio",email="ignacio@gmai.com",password="ignacio123",access=true},
+            new User(){name="Yasuo",email="yasuo@gmail.com",password="yasuo123",access=false}
+        };
+        
  
         [HttpGet("chef/{email}/{password}")]
         public IActionResult chefAutorization(string email, string password)
@@ -20,9 +28,9 @@ namespace WebApp.Api.Controllers
             var _user = UserData.chefLogin(email, password);
             if (_user == null)
             {
-                return NotFound("Not found or Access denied");
+                _user = new User() { name = "", email = "", access = false, credentials = false, password = "" };
             }
-            return Ok("Access granted");
+            return Ok(_user);
         }
         
         [HttpGet("admin/{email}/{password}")]
@@ -31,9 +39,9 @@ namespace WebApp.Api.Controllers
             var _user = UserData.adminLogin(email, password);
             if (_user == null)
             {
-                return NotFound("Not found or Access denied");
+                _user = new User() {name="",email = "", access = false, credentials = false, password = "" };
             }
-            return Ok("Access Granted");
+            return Ok(_user);
         }
         
     }

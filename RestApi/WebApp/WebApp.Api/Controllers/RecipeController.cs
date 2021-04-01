@@ -13,6 +13,7 @@ namespace WebApp.Api.Controllers
     [ApiController]
     public class RecipeController : ControllerBase
     {
+        
         /*
         static Ingredient onion = new Ingredient { name = "onion", amount = 3 };
         static Ingredient tomatoe = new Ingredient { name = "tomatoe", amount = 4 };
@@ -30,14 +31,17 @@ namespace WebApp.Api.Controllers
 
         List<Recipe> recipes = new List<Recipe>() {
             new Recipe(){recipeName="Gallo Pinto",price=2200,calories=300,finishTime="10:00",
-                ingredients=new List<Ingredient>{onion,rice,bean,egg,bacon},prepareTime=-1,type=breakfast},
+                ingredients=new List<Ingredient>{onion,rice,bean,egg,bacon},prepareTime=-1,type=breakfast,
+                imagePath="https://www.recetascostarica.com/base/stock/Post/2-image/2-image_web.jpg0"},
              new Recipe(){recipeName="Casado",price=3400,calories=700,finishTime="12:00",
-                ingredients=new List<Ingredient>{rice,bean,steak,tomatoe},prepareTime=-1,type=lunch},
+                ingredients=new List<Ingredient>{rice,bean,steak,tomatoe},prepareTime=-1,type=lunch,
+             imagePath="https://i.pinimg.com/originals/15/c2/24/15c22439b29413b081b8e9f459f7a354.jpg"},
               new Recipe(){recipeName="Arroz con Pollo",price=2200,calories=300,finishTime="4:00",
-                ingredients=new List<Ingredient>{chicken,rice,tomatoe},prepareTime=-1,type=dinner},
+                ingredients=new List<Ingredient>{chicken,rice,tomatoe},prepareTime=-1,type=dinner,
+              imagePath="https://images-gmi-pmc.edge-generalmills.com/8f518e2c-ad62-4480-b6e1-cdf10a9f6c08.jpg"},
         };
+        
         */
-
 
         //obtiene lista de todos los platos que existen
         [HttpGet]
@@ -75,7 +79,7 @@ namespace WebApp.Api.Controllers
                 return NotFound("No List Found.");
             }
             RecipeData.writeData(_recipes);
-            return Ok("Recipe Added Succesfully");
+            return Ok(_recipes);
         }
         
         
@@ -94,7 +98,7 @@ namespace WebApp.Api.Controllers
                 return NotFound("No list found");
             }
             RecipeData.writeData(_recipes);
-            return Ok("Recipe Deleted Successfully");
+            return Ok(_recipes);
         }
     }
 }
