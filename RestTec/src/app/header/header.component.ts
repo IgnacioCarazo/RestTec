@@ -11,6 +11,8 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class HeaderComponent implements OnInit {
     isAdmin = true;
     private login: boolean;
+    email: string;
+    password: string;
 
     constructor(private dataStorageService: DataStorageService,
         private route: ActivatedRoute,
@@ -36,6 +38,9 @@ export class HeaderComponent implements OnInit {
         this.dataStorageService.isAuthorized = true;
         this.login = this.dataStorageService.isAuthorized;
         console.log(form.value);
+        this.email = form.value.email;
+        this.password = form.value.password;
+        this.dataStorageService.sendLoginInfo(form.value.email,form.value.password);
         form.reset();
         if (this.isAdmin) {
             this.router.navigate(['/admin-orders']);

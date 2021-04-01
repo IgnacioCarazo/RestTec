@@ -10,6 +10,13 @@ export class DataStorageService {
   isAuthorized = false;
   constructor(private http: HttpClient, private recipeService: RecipeService) {}
 
+
+  sendLoginInfo(email: string, password: string) {
+    console.log(email);
+    console.log(password);
+
+  }
+
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
