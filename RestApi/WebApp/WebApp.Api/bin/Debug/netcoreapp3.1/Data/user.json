@@ -1,0 +1,27 @@
+[
+    {
+        "email": "mario@gmail.com",
+        "password": "174",
+        "access": true
+    },
+    {
+        "email": "haziel@gmail.com",
+        "password": "234",
+        "access": false
+    },
+    {
+        "email": "nacho@gmail.com",
+        "password": "467",
+        "access": true
+    },
+    {
+        "email": "joseph@gmail.com",
+        "password": "1234",
+        "access": false
+    },
+    {
+        "email": "yasuo@gmail.com",
+        "password": "777",
+        "access": true
+    }
+]
