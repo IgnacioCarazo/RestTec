@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.Api.Model
 {
-    public class Client : User
+    public class Client
     {
-        //celular del cliente
- 
+    
         public int iD { get; set; }
         //nombre del cliente
         public string name { get; set; }
@@ -20,6 +19,10 @@ namespace WebApp.Api.Model
         public string birthday { get; set; }
         public int celNum { get; set; }
         //cedula del cliente
+        //correo electronico del usuario
+        public string email { get; set; }
+        //contrasena del usuario
+        public string password { get; set; }
 
     }
 }

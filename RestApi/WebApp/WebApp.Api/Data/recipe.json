@@ -31,7 +31,8 @@
         "type": {
             "name": "desayuno",
             "description": "Disponible de 7:00 am hasta 10:00 am"
-        }
+        },
+        "imagePath": "https://www.recetascostarica.com/base/stock/Post/2-image/2-image_web.jpg0"
     },
     {
         "recipeName": "Casado",
@@ -60,7 +61,8 @@
         "type": {
             "name": "almuerzo",
             "description": "Disponible de 11:00 am hasta 1:00 pm"
-        }
+        },
+        "imagePath": "https://i.pinimg.com/originals/15/c2/24/15c22439b29413b081b8e9f459f7a354.jpg"
     },
     {
         "recipeName": "Arroz con Pollo",
@@ -85,35 +87,7 @@
         "type": {
             "name": "cena",
             "description": "Disponible de 3:00 pm hasta 7:00 am"
-        }
-    },
-    {
-        "recipeName": "Pasta",
-        "price": 4500,
-        "calories": 980,
-        "prepareTime": -1,
-        "ingredients": [
-            {
-                "name": "onion",
-                "amount": 2
-            },
-            {
-                "name": "tomatoe",
-                "amount": 5
-            },
-            {
-                "name": "egg",
-                "amount": 2
-            },
-            {
-                "name": "bacon",
-                "amount": 3
-            }
-        ],
-        "finishTime": "10:00",
-        "type": {
-            "name": "cena",
-            "description": "Disponible de 7:00 am hasta 10:00 am"
-        }
+        },
+        "imagePath": "https://images-gmi-pmc.edge-generalmills.com/8f518e2c-ad62-4480-b6e1-cdf10a9f6c08.jpg"
     }
 ]
