@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">RestTEC-Mobile</string>
+    <string name="user">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="Register">Registro</string>
+    <string name="UserName">Nombre</string>
+    <string name="firstLastName">Primer Apellido</string>
+    <string name="secondLastName">Segundo Apellido</string>
+    <string name="province">Provincia</string>
+    <string name="canton">Cantón</string>
+    <string name="district">Distrito</string>
+    <string name="birth">Nacimiento</string>
+    <string name="telephone">Teléfono</string>
+    <string name="email">Correo Electrónico</string>
+    <string name="ID">Cédula</string>
+    <string name="title_activity_main">Elige el pedido</string>
+    <string name="title_activity_carro_compra">CarroCompra</string>
+    <string name="feedback">Tiene algun comentario sobre el pedido?</string>
+    <string name="enviarFeedback">Enviar Feedback</string>
+    <string name="TituloTiempo">El tiempo de espera para su pedido es..</string>
+    <string name="tiempo">Tiempo de Espera</string>
+    <string name="URL_SOURCE">http://localhost:5001/api/Client/login/</string>
+    <string name="slash">/</string>
+
+</resources>

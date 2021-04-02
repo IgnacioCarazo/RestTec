@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{FEDF38D9-1F29-4F45-83D9-8FFBAC7A9A7B}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApp.Api/Controllers/RecipeController.cs">
+    <Files>
+      <File FileName="WebApp.Api/Data/recipe.json" Line="1" Column="1" />
+      <File FileName="WebApp.Api/Program.cs" Line="16" Column="1" />
+      <File FileName="WebApp.Api/Data/user.json" Line="5" Column="35" />
+      <File FileName="WebApp.Api/Model/User.cs" Line="1" Column="1" />
+      <File FileName="WebApp.Api/Controllers/UserController.cs" Line="1" Column="1" />
+      <File FileName="WebApp.Api/Controllers/RecipeController.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WebApp" expanded="True">
+            <Node name="WebApp.Api" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="RecipeController.cs" selected="True" />
+              </Node>
+              <Node name="Data" expanded="True" />
+              <Node name="Model" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.WebApp.Api PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -1,0 +1,69 @@
+[
+    
+    {
+        "iD": 2017106391,
+        "name": "Haziel",
+        "lastName": "Rovira",
+        "direction": "SanJose",
+        "birthday": "27/11/1999",
+        "celNum": 84688275,
+        "email": "mariohaziel@gmail.com",
+        "password": "15445",
+        "access": false
+    },
+    {
+        "iD": 2106391,
+        "name": "Andres",
+        "lastName": "Gudino",
+        "direction": "SanJose",
+        "birthday": "07/11/2020",
+        "celNum": 84688275,
+        "email": "haziel@gmail.com",
+        "password": "12345",
+        "access": false
+    },
+    {
+        "iD": 6391,
+        "name": "Haziel",
+        "lastName": "Rovira",
+        "direction": "SanJose",
+        "birthday": "25/03/1999",
+        "celNum": 84688275,
+        "email": "mariol@gmail.com",
+        "password": "9775",
+        "access": false
+    },
+    {
+        "iD": 45691,
+        "name": "Haziel",
+        "lastName": "Rovira",
+        "direction": "SanJose",
+        "birthday": "27/11/2009",
+        "celNum": 84688275,
+        "email": "maha@gmail.com",
+        "password": "9678",
+        "access": false
+    },
+    {
+        "iD": 25606391,
+        "name": "Haziel",
+        "lastName": "Rovira",
+        "direction": "SanJose",
+        "birthday": "27/11/1998",
+        "celNum": 84688275,
+        "email": "ziel@gmail.com",
+        "password": "9756",
+        "access": false
+    },
+    {
+        "iD": 20171091,
+        "name": "Haziel",
+        "lastName": "Rovira",
+        "direction": "SanJose",
+        "birthday": "27/11/1999",
+        "celNum": 84688275,
+        "email": "mariohiel@gmail.com",
+        "password": "15445",
+        "access": false
+    }
+]

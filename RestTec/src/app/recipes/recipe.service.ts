@@ -7,7 +7,7 @@ import { Ingredient } from '../shared/ingredient.model';
 @Injectable()
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-
+  private recipe: Recipe;
   private recipes: Recipe[] = [];
 
   constructor() {}
@@ -17,12 +17,20 @@ export class RecipeService {
     this.recipesChanged.next(this.recipes.slice());
   }
 
+  setRecipe(recipe: Recipe) {
+    this.recipe = recipe;
+  }
+
   getRecipes() {
     return this.recipes.slice();
   }
 
   getRecipe(index: number) {
     return this.recipes[index];
+  }
+
+  getActualRecipe() {
+    return this.recipe;
   }
 
  

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 
 import { RecipeService } from '../recipe.service';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,7 +18,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private dataStorageService: DataStorageService
   ) {}
 
   ngOnInit() {
@@ -35,9 +37,13 @@ export class RecipeEditComponent implements OnInit {
   onSubmit() {
     if (this.editMode) {
       this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+      this.recipeService.setRecipe(this.recipeForm.value);
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
+      this.recipeService.setRecipe(this.recipeForm.value);
+
     }
+    this.dataStorageService.storeRecipe();
     this.onCancel();
   }
 
@@ -66,14 +72,18 @@ export class RecipeEditComponent implements OnInit {
     let recipeImagePath = '';
     let recipePrice = 0;
     let recipeCalories = 0;
+    let recipePrepareTime = 5;
+    let recipeFinishTime = 'Listo a las 5pm';
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipe(this.id);
-      recipeName = recipe.name;
+      recipeName = recipe.recipeName;
       recipeImagePath = recipe.imagePath;
       recipePrice = recipe.price;
       recipeCalories = recipe.calories;
+      recipePrepareTime = recipe.prepareTime;
+      recipeFinishTime = recipe.finishTime;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           recipeIngredients.push(
@@ -90,7 +100,9 @@ export class RecipeEditComponent implements OnInit {
     }
 
     this.recipeForm = new FormGroup({
-      name: new FormControl(recipeName, Validators.required),
+      recipeName: new FormControl(recipeName, Validators.required),
+      prepareTime: new FormControl(recipePrepareTime),
+      finishTime: new FormControl(recipeFinishTime),
       imagePath: new FormControl(recipeImagePath, Validators.required),
       price: new FormControl(recipePrice, Validators.required),
       calories: new FormControl(recipeCalories, Validators.required),

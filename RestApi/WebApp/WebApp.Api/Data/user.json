@@ -1,0 +1,31 @@
+[
+    
+    {
+        "name": "Haziel",
+        "email": "haziel@gmail.com",
+        "password": "haziel123",
+        "access": true,
+        "credentials": true
+    },
+    {
+        "name": "Joseph",
+        "email": "joseph@gmail.com",
+        "password": "joseph123",
+        "access": false,
+        "credentials": true
+    },
+    {
+        "name": "Ignacio",
+        "email": "ignacio@gmai.com",
+        "password": "ignacio123",
+        "access": true,
+        "credentials": true
+    },
+    {
+        "name": "Yasuo",
+        "email": "yasuo@gmail.com",
+        "password": "yasuo123",
+        "access": false,
+        "credentials": true
+    }
+]

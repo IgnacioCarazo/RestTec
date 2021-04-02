@@ -12,18 +12,18 @@ export class OrdersService {
 
     private allOrders = [
         new Order(135, true, "Ignacio Carazo", [
-            new Recipe("Pizza", 5000, 500, "",[new Ingredient("Pepperoni",3)], new RecipeType("Almuerzo",""))], 10),
+            new Recipe("Pizza", 5000, 500,5, "",[new Ingredient("Pepperoni",3)],"", new RecipeType("Almuerzo",""))], 10),
         new Order(120, false, "", [
-          new Recipe("Gallo Pinto", 5000, 500, "",[new Ingredient("Pepperoni",3)], new RecipeType("Desayuno",""))], 5),
+          new Recipe("Gallo Pinto", 5000, 500,5, "",[new Ingredient("Pepperoni",3)],"", new RecipeType("Desayuno",""))], 5),
         new Order(137, true, "Joseph Jimenez", [
-          new Recipe("Ramen", 5000, 500, "",[new Ingredient("Pepperoni",3)], new RecipeType("Cena",""))], 7),
+          new Recipe("Ramen", 5000, 500,5, "",[new Ingredient("Pepperoni",3)],"", new RecipeType("Cena",""))], 7),
           
     ];
     private assignedOrders = [
       new Order(137, true, "Ignacio Carazo", [
-        new Recipe("Ramen", 5000, 500, "",[new Ingredient("Pepperoni",3)], new RecipeType("Cena",""))], 5),
+        new Recipe("Ramen", 5000, 500,5, "",[new Ingredient("Pepperoni",3)], "",new RecipeType("Cena",""))], 5),
       new Order(135, true, "Ignacio Carazo", [
-        new Recipe("Pizza", 5000, 500, "",[new Ingredient("Pepperoni",3)], new RecipeType("Almuerzo",""))], 5)
+        new Recipe("Pizza", 5000, 500,5, "",[new Ingredient("Pepperoni",3)], "",new RecipeType("Almuerzo",""))], 5)
     ];
 
     getOrderFromAll(index: number) {
