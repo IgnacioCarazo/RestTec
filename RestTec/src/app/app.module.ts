@@ -34,6 +34,7 @@ import { OrdersControllerComponent } from './orders-controller/orders-controller
 import { OrdersControllerDetailComponent } from './orders-controller/orders-controller-detail/orders-controller-detail.component';
 import { OrdersControllerListComponent } from './orders-controller/orders-controller-list/orders-controller-list.component';
 import { OrdersControllerItemComponent } from './orders-controller/orders-controller-list/orders-controller-item/orders-controller-item.component';
+import { HeaderService } from './header/header.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { OrdersControllerItemComponent } from './orders-controller/orders-contro
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [RecipeService, RecipeTypeService, ReportsService, OrdersService],
+  providers: [RecipeService, RecipeTypeService, ReportsService, OrdersService, HeaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -4,23 +4,36 @@ import { map, tap } from 'rxjs/operators';
 
 import { Recipe } from '../recipes/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
+import { User } from './user.model';
+import { HeaderService } from '../header/header.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
+  user: User;
   isAuthorized = false;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
-  constructor(private http: HttpClient, private recipeService: RecipeService) {}
+  constructor(private http: HttpClient, private recipeService: RecipeService, private headerService: HeaderService) {}
 
 
   sendLoginInfo(email: string, password: string) {
-    console.log(email);
-    console.log(password);
-    this.http.get('https://localhost:5001/api/User/chef/'+ email + '/' + password).
-    subscribe( responseLogin => {
-      console.log(responseLogin);
+    this.http.get<User>('https://localhost:5001/api/User/admin/'+ email + '/' + password).
+
+    
+    subscribe( (user: User) => {
+      console.log(user);
+      this.user = user;
+      console.log(this.user);
+
+      this.headerService.setUser(this.user);
     });
+  
+    console.log(this.user);
+
+    return this.user;
+
+    
     
   }
 
@@ -38,6 +51,7 @@ export class DataStorageService {
 
   storeRecipe() {
     const recipe = this.recipeService.getActualRecipe();
+    console.log(recipe);
     this.http
       .post(
         'https://localhost:5001/api/Recipe/addRecipe',

@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 import { Recipe } from "../recipes/recipe.model";
-import { Chef } from "../shared/chef.model";
+import { User } from "../shared/user.model";
 
 export class Order {
     id: number;
