@@ -37,7 +37,7 @@ namespace WebApp.Api.Data
         {
             string readFile = File.ReadAllText(@"Data/client.json");
             var clientList = JsonConvert.DeserializeObject<List<Client>>(readFile);
-            var _client = clientList.SingleOrDefault(x => x.email == email);
+            var _client = clientList.SingleOrDefault(x =>x.email == email);
             if (_client == null)
             {
                 return _client;

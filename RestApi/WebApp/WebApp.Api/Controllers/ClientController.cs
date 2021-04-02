@@ -13,6 +13,20 @@ namespace WebApp.Api.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
+        /*
+        List<Client> clients = new List<Client>()
+        {
+            new Client(){name="Andres",primaryLastName="Barrantes",secondLastName="Herrera",iD=123,email="andres@gmail.com",password="andres123",
+                province="San Josee",celNum=8854,birthday="26/11/1996",canton="Central",district="Pavas" },
+            new Client(){name="Gerardo",primaryLastName="Barboza",secondLastName="Leon",iD=345,email="gerardo@gmail.com",password="gerardo345",
+                province="Cartado",celNum=8856,birthday="23/03/2001",canton="Central",district="Tres Rios" },
+            new Client(){name="Veronica",primaryLastName="Pacheco",secondLastName="Venegas",iD=567,email="veronica@gmail.com",password="veronica567",
+                province="Heredia",celNum=89875,birthday="3/05/1999",canton="Central",district="Heredia" },
+            new Client(){name="Lucia",primaryLastName="Prada",secondLastName="Gucci",iD=789,email="lucias@gmail.com",password="lucia789",
+                province="Alajuela",celNum=456576,birthday="9/2/2004",canton="Central",district="Trejos" }
+        };
+        */
+
         //get de todos los clientes que existen
         [HttpGet]
         public IActionResult Gets()
@@ -42,7 +56,7 @@ namespace WebApp.Api.Controllers
             {
                 return NotFound("No client found or Access denied");
             }
-            return Ok("Access granted");
+            return Ok(_client);
         }
 
         //guarda un nuevo cliente
@@ -59,7 +73,7 @@ namespace WebApp.Api.Controllers
             {
                 return NotFound("No List Found.");
             }
-            return Ok("Successful Registration");
+            return Ok(client);
         }
         
        //metodo para eliminar un cliente segun su id
