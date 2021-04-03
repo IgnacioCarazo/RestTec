@@ -36,7 +36,7 @@ namespace WebApp.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(builder =>
-                builder.WithOrigins("'https://localhost:4200"));
+                builder.WithOrigins("https://localhost:4200"));
 
             app.UseHttpsRedirection();
 

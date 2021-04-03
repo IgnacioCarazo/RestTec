@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using WebApp.Api.Model;
 namespace WebApp.Api.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("https://localhost:4200")]
     [ApiController]
     public class RecipeController : ControllerBase
     {
