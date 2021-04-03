@@ -48,6 +48,7 @@ namespace WebApp.Api.Controllers
             {
                 return NotFound("No List Found.");
             }
+            OrderData.writeData(orders);
             return Ok("Order Added Successfully");
         }
         

@@ -68,3 +68,4 @@ C:\Users\mario\Desktop\BasesDatos\RestTec\RestApi\WebApp\WebApp.Api\obj\Debug\ne
 C:\Users\mario\Desktop\BasesDatos\RestTec\RestApi\WebApp\WebApp.Api\obj\Debug\netcoreapp3.1\WebApp.Api.dll
 C:\Users\mario\Desktop\BasesDatos\RestTec\RestApi\WebApp\WebApp.Api\obj\Debug\netcoreapp3.1\WebApp.Api.pdb
 C:\Users\mario\Desktop\BasesDatos\RestTec\RestApi\WebApp\WebApp.Api\obj\Debug\netcoreapp3.1\WebApp.Api.genruntimeconfig.cache
+C:\Users\mario\Desktop\BasesDatos\RestTec\RestApi\WebApp\WebApp.Api\bin\Debug\netcoreapp3.1\Data\recipeType.json
