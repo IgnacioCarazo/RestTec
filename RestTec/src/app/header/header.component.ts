@@ -13,7 +13,6 @@ import { HeaderService } from './header.service';
 export class HeaderComponent implements OnInit {
     isAdmin = true;
     private login: boolean;
-    private check: boolean = false;
     email: string;
     password: string;
     user: User;
@@ -42,25 +41,38 @@ export class HeaderComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         this.email = form.value.email;
-        this.password = form.value.password;
-        this.dataStorageService.isAuthorized = true;
-        this.login = this.dataStorageService.isAuthorized;
-        console.log(this.headerService.user);
-        console.log(form.value);
-        this.user = this.dataStorageService.sendLoginInfo(form.value.email,form.value.password);
+        this.password = form.value.password;        
+        this.dataStorageService.sendLoginInfo(form.value.email,form.value.password, this.isAdmin).
+            subscribe( user => {
+                this.user = user;
+                this.headerService.setUser(this.user);
+                if (this.user.credentials) {
+                    this.userAdmitted(this.user.access);
+                }                
+            });
         form.reset();
-        if (this.isAdmin) {
-            this.router.navigate(['/admin-orders']);
-        } else{
-            this.router.navigate(['/orders-controller'])
-        }
+
+        
 
       }
 
-    checkUser() {
-        this.dataStorageService.sendLoginInfo(this.email,this.password);
-        console.log(123456);
-        this.check = true;
+    userAdmitted(access: boolean) {
+        if (this.isAdmin && access) {
+            console.log(this.user);
+
+            this.dataStorageService.isAuthorized = true;
+            this.login = this.dataStorageService.isAuthorized;
+            this.router.navigate(['/admin-orders']);
+        } else if (!this.isAdmin && !access){
+            this.dataStorageService.isAuthorized = true;
+            this.login = this.dataStorageService.isAuthorized;
+            this.router.navigate(['/orders-controller'])
+        } else {
+            console.log(this.user);
+            
+            this.router.navigate(['/login'])
+
+        }
 
         
     }

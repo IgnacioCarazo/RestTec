@@ -40,6 +40,20 @@
           <img [src]="imagePath.value" class="img-responsive">
         </div>
       </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-12">
+          <label for="recipeTypes" style="margin-right: 10px;">Tipo de Plato</label>
+            <select >
+              <option *ngFor="let recipeType of recipeTypes; let i = index" 
+              [value]="recipeTypes[i]" 
+              >
+                {{ recipeTypes[i].name }}
+              </option>
+            </select>
+              
+        </div>
+      </div>
       <div class="row">
         <div class="col-xs-3">
           <div class="form-group">

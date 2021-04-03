@@ -15,6 +15,5 @@ export class HeaderService {
     setUser(newUser: User) {
         this.user = newUser;
         this.userChanged.next(this.user);
-        console.log(this.user);
     }
 }

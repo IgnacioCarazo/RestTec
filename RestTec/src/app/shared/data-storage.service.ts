@@ -6,6 +6,7 @@ import { Recipe } from '../recipes/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
 import { User } from './user.model';
 import { HeaderService } from '../header/header.service';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -17,25 +18,15 @@ export class DataStorageService {
   constructor(private http: HttpClient, private recipeService: RecipeService, private headerService: HeaderService) {}
 
 
-  sendLoginInfo(email: string, password: string) {
-    this.http.get<User>('https://localhost:5001/api/User/admin/'+ email + '/' + password).
-
-    
-    subscribe( (user: User) => {
-      console.log(user);
-      this.user = user;
-      console.log(this.user);
-
-      this.headerService.setUser(this.user);
-    });
-  
-    console.log(this.user);
-
-    return this.user;
-
-    
-    
+  sendLoginInfo(email: string, password: string, isAdmin: boolean): Observable<User> {
+    if (isAdmin) {
+      return this.http.get<User>('https://localhost:5001/api/User/admin/'+ email + '/' + password);
+    } else {
+      return this.http.get<User>('https://localhost:5001/api/User/chef/'+ email + '/' + password);
+    }
+      
   }
+
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -49,13 +40,12 @@ export class DataStorageService {
       });
   }
 
-  storeRecipe() {
-    const recipe = this.recipeService.getActualRecipe();
+  storeRecipe(recipe: Recipe) {
     console.log(recipe);
     this.http
       .post(
         'https://localhost:5001/api/Recipe/addRecipe',
-        recipe, this.httpOptions
+        recipe
       )
       .subscribe(response => {
         console.log(response);

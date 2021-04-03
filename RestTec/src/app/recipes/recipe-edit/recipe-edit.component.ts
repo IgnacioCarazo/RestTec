@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, FormBuilder } from '@angular/forms';
 
 import { RecipeService } from '../recipe.service';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
+import { RecipeTypeService } from 'src/app/recipe-type/recipe-type.service';
+import { RecipeType } from 'src/app/recipe-type/recipe-type.model';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,13 +17,24 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  recipeTypeForm: FormGroup;
+  recipeTypes = [];
 
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private router: Router,
-    private dataStorageService: DataStorageService
-  ) {}
+    private dataStorageService: DataStorageService,
+    private formBuilder: FormBuilder,
+    private recipeTypeService: RecipeTypeService
+  ) {
+    this.recipeTypeForm = this.formBuilder.group({
+      recipeTypes: ['']
+    });
+
+    this.recipeTypes = this.recipeTypeService.getRecipeTypes();
+    console.log(this.recipeTypes);
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -43,7 +57,8 @@ export class RecipeEditComponent implements OnInit {
       this.recipeService.setRecipe(this.recipeForm.value);
 
     }
-    this.dataStorageService.storeRecipe();
+    console.log(this.recipeService.recipe);
+    this.dataStorageService.storeRecipe(this.recipeService.recipe);
     this.onCancel();
   }
 
@@ -72,8 +87,10 @@ export class RecipeEditComponent implements OnInit {
     let recipeImagePath = '';
     let recipePrice = 0;
     let recipeCalories = 0;
-    let recipePrepareTime = 5;
-    let recipeFinishTime = 'Listo a las 5pm';
+    let recipePrepareTime = 0;
+    let recipeFinishTime = '';
+    let recipeType: RecipeType;
+    let recipeTypeName = '';
     let recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
@@ -84,6 +101,8 @@ export class RecipeEditComponent implements OnInit {
       recipeCalories = recipe.calories;
       recipePrepareTime = recipe.prepareTime;
       recipeFinishTime = recipe.finishTime;
+      recipeType = recipe.type;
+      recipeTypeName = recipe.type.name;
       if (recipe['ingredients']) {
         for (let ingredient of recipe.ingredients) {
           recipeIngredients.push(
@@ -106,6 +125,7 @@ export class RecipeEditComponent implements OnInit {
       imagePath: new FormControl(recipeImagePath, Validators.required),
       price: new FormControl(recipePrice, Validators.required),
       calories: new FormControl(recipeCalories, Validators.required),
+
       ingredients: recipeIngredients
     });
   }

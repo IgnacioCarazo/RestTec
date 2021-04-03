@@ -11,7 +11,7 @@ export class Recipe {
   public finishTime: string;
   public type: RecipeType;
 
-  constructor(recipeName: string, price: number, calories: number, prepareTime: number, imagePath: string, ingredients: Ingredient[],finishTime: string, recipeType: RecipeType) {
+  constructor(recipeName: string, price: number, calories: number, prepareTime: number, ingredients: Ingredient[],finishTime: string, recipeType: RecipeType, imagePath: string) {
     this.recipeName = recipeName;
     this.price = price;
     this.prepareTime = 5;
