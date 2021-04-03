@@ -11,7 +11,6 @@ using WebApp.Api.Model;
 namespace WebApp.Api.Controllers
 {
     [Route("api/[controller]")]
-    [EnableCors("https://localhost:4200")]
     [ApiController]
     public class RecipeController : ControllerBase
     {

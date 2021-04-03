@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Desayuno",
+        "description": "Disponible de 7:00 am a 10:00 am"
+    },
+    {
+        "name": "Almuerzo",
+        "description": "Disponible de 11:00 am a 1:00 pm"
+    },
+    {
+        "name": "Cena",
+        "description": "Disponible de 3:00 pm a 7:00 pm"
+    }
+]

@@ -73,6 +73,7 @@ namespace WebApp.Api.Controllers
             {
                 return NotFound("No List Found.");
             }
+            ClientData.writeData(_clients);
             return Ok(client);
         }
         
