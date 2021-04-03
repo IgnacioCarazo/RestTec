@@ -3,11 +3,12 @@ import { Subject } from 'rxjs';
 
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
+import { RecipeType } from '../recipe-type/recipe-type.model';
 
 @Injectable()
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-  private recipe: Recipe;
+  recipe: Recipe;
   private recipes: Recipe[] = [];
 
   constructor() {}
@@ -36,6 +37,7 @@ export class RecipeService {
  
 
   addRecipe(recipe: Recipe) {
+    recipe.type = new RecipeType("Almuerzo","Se come al medio dia");
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }

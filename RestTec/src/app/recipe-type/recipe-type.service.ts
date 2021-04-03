@@ -8,9 +8,15 @@ import { RecipeType } from './recipe-type.model';
 export class RecipeTypeService {
   recipeTypesChanged = new Subject<RecipeType[]>();
 
-  private recipeTypes: RecipeType[] = [];
+  private recipeTypes: RecipeType[];
 
-  constructor() {}
+  constructor() {
+    this.recipeTypes = [
+      new RecipeType("Desayuno", "Comida que suele ser servida en horas tempranas del dia"),
+      new RecipeType("Almuerzo", "Comida que suele ser servida luego del desayuno"),
+      new RecipeType("Cena", "Comida que suele ser servida en la noche"),
+    ]
+  }
 
   setRecipeTypes(recipes: RecipeType[]) {
     this.recipeTypes = recipes;

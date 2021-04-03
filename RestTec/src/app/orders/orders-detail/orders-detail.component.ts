@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HeaderService } from 'src/app/header/header.service';
 import { Order } from '../order.model';
 import { OrdersService } from '../orders.service';
 
@@ -13,6 +14,7 @@ export class OrdersDetailComponent implements OnInit {
   id: number;
 
   constructor(private ordersService: OrdersService,
+              private headerService: HeaderService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -29,7 +31,7 @@ export class OrdersDetailComponent implements OnInit {
 
 
   onUpdateOrder() {
-    this.order.chef = "Ignacio Carazo";
+    this.order.chef = this.headerService.user.name;
     this.order.assigned = true;
     this.ordersService.updateOrder(this.id, this.order)
   }
