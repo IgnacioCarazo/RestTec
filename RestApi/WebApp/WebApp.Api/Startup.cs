@@ -26,6 +26,9 @@ namespace WebApp.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options => options.AddDefaultPolicy(
+                builder => builder.AllowAnyOrigin()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +39,7 @@ namespace WebApp.Api
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(builder =>
-                builder.WithOrigins("'https://localhost:4200"));
+                builder.WithOrigins());
 
             app.UseHttpsRedirection();
 
