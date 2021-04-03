@@ -35,12 +35,15 @@ namespace WebApp.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(builder =>
+                builder.WithOrigins("'https://localhost:4200"));
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

@@ -7,14 +7,17 @@ namespace WebApp.Api.Model
 {
     public class Client
     {
-    
         public int iD { get; set; }
         //nombre del cliente
         public string name { get; set; }
-        //apellido del clente
-        public string lastName { get; set; }
+        //primer apellido del clente
+        public string primaryLastName {get; set; }
+        //segundo apellido del cliente
+        public string secondLastName { get; set; }
         //direccion del cliente
-        public string direction { get; set; }
+        public string province { get; set; }
+        public string canton { get; set; }
+        public string district { get; set; }
         //fecha de nacimiento
         public string birthday { get; set; }
         public int celNum { get; set; }
