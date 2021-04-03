@@ -65,7 +65,7 @@ namespace WebApp.Api.Controllers
             {
                 return NotFound("No list found");
             }
-            return Ok("RecipeType Deleted Successully");
+            return Ok(_types);
         }
 
     }
