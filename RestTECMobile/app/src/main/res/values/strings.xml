@@ -20,7 +20,7 @@
     <string name="enviarFeedback">Enviar Feedback</string>
     <string name="TituloTiempo">El tiempo de espera para su pedido es..</string>
     <string name="tiempo">Tiempo de Espera</string>
-    <string name="URL_SOURCE">http://localhost:5001/api/Client/login/</string>
+    <string name="URL_SOURCE">https://10.0.2.2:5001/</string>
     <string name="slash">/</string>
-
+    <string name="Eliminar">Eliminar Usuario</string>
 </resources>

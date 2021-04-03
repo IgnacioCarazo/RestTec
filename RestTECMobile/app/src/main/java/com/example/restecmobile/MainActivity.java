@@ -12,12 +12,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restecmobile.models.Ingredient;
+import com.example.restecmobile.models.Producto;
+import com.example.restecmobile.models.RecipeType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 /**
  * @class MainActivity
