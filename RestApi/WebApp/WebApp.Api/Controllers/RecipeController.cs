@@ -13,7 +13,7 @@ namespace WebApp.Api.Controllers
     [ApiController]
     public class RecipeController : ControllerBase
     {
-        
+
         /*
         static Ingredient onion = new Ingredient { name = "onion", amount = 3 };
         static Ingredient tomatoe = new Ingredient { name = "tomatoe", amount = 4 };
@@ -51,7 +51,7 @@ namespace WebApp.Api.Controllers
             return Ok(_recipes);
         }
 
-        
+
         //obtiene un plato especifico segun su nombre
         [HttpGet("{name}")]
         public IActionResult Get(string name)
@@ -63,7 +63,7 @@ namespace WebApp.Api.Controllers
             }
             return Ok(recipe);
         }
-        
+
         //guarda un nuevo plato
         [HttpPost("addRecipe")]
         public IActionResult SaveRecipe(Recipe recipe)
@@ -81,8 +81,8 @@ namespace WebApp.Api.Controllers
             RecipeData.writeData(_recipes);
             return Ok(_recipes);
         }
-        
-        
+
+
         //elimina un plato segun su nombre
         [HttpDelete("delete/{name}")]
         public IActionResult DeleteRecipe(string name)
@@ -99,6 +99,18 @@ namespace WebApp.Api.Controllers
             }
             RecipeData.writeData(_recipes);
             return Ok(_recipes);
+        }
+
+        //metodo para actualizar una receta
+        [HttpPut("updateRecipe")]
+        public IActionResult updateRecipe(List<Recipe> recipeList)
+        {
+            if (recipeList.Count == 0 || recipeList==null)
+            {
+                return NotFound("Error List");
+            }
+            RecipeData.writeData(recipeList);
+            return Ok(recipeList);
         }
     }
 }
