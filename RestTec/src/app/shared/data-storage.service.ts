@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵɵsyntheticHostProperty } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
@@ -13,7 +13,8 @@ export class DataStorageService {
   user: User;
   isAuthorized = false;
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'
+   })
   };
   constructor(private http: HttpClient, private recipeService: RecipeService, private headerService: HeaderService) {}
 
@@ -45,7 +46,7 @@ export class DataStorageService {
     this.http
       .post(
         'https://localhost:5001/api/Recipe/addRecipe',
-        recipe
+        recipe, this.httpOptions
       )
       .subscribe(response => {
         console.log(response);
