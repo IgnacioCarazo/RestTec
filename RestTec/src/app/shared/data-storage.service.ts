@@ -7,6 +7,8 @@ import { RecipeService } from '../recipes/recipe.service';
 import { User } from './user.model';
 import { HeaderService } from '../header/header.service';
 import { Observable } from 'rxjs';
+import { RecipeType } from '../recipe-type/recipe-type.model';
+import { RecipeTypeService } from '../recipe-type/recipe-type.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -16,9 +18,15 @@ export class DataStorageService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'
    })
   };
-  constructor(private http: HttpClient, private recipeService: RecipeService, private headerService: HeaderService) {}
+  constructor(private http: HttpClient, 
+              private recipeService: RecipeService, 
+              private headerService: HeaderService,
+              private recipeTypeService: RecipeTypeService) {}
 
 
+  /**
+  * http request del login
+  */
   sendLoginInfo(email: string, password: string, isAdmin: boolean): Observable<User> {
     if (isAdmin) {
       return this.http.get<User>('https://localhost:5001/api/User/admin/'+ email + '/' + password);
@@ -28,7 +36,9 @@ export class DataStorageService {
       
   }
 
-
+/**
+  * http requests de recetas
+  */
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
@@ -39,8 +49,12 @@ export class DataStorageService {
       .subscribe(response => {
         console.log(response);
       });
-      this.fetchRecipes();
-    
+      this.fetchRecipes(); 
+  }
+
+  deleteRecipe(recipe: Recipe) {
+    this.http.delete('https://localhost:5001/api/Recipe/delete/' + recipe.recipeName, this.httpOptions);
+    this.fetchRecipes();
   }
 
   storeRecipe(recipe: Recipe) {
@@ -76,4 +90,60 @@ export class DataStorageService {
         })
       )
   }
+  /**
+  * http requests de tipo de recetas
+  */
+
+  storeRecipeTypes() {
+    const recipeTypes = this.recipeTypeService.getRecipeTypes();
+    console.log(recipeTypes);
+    this.http
+      .put(
+        'https://localhost:5001/api/RecipeType/updateType',
+        recipeTypes
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+      this.fetchRecipeTypes(); 
+  }
+
+  storeRecipeType(recipeType: RecipeType) {
+    console.log(recipeType);
+    this.http
+      .post(
+        'https://localhost:5001/api/RecipeType/newType',
+        recipeType, this.httpOptions
+      )
+      .subscribe(response => {
+        console.log(response);
+      });
+    this.fetchRecipes();
+  }
+
+  fetchRecipeTypes() {
+      return this.http
+      .get<RecipeType[]>(
+        'https://localhost:5001/api/RecipeType'
+      )
+      .pipe(
+        map(recipeTypes => {
+          return recipeTypes.map(recipeType => {
+            return {
+              ...recipeType
+            };
+          });
+        }),
+        tap(recipeTypes => {
+          console.log(recipeTypes);
+          this.recipeTypeService.setRecipeTypes(recipeTypes);
+        })
+      )
+  }
+
+  /**
+  * http requests de ordenes
+  */
+
+  
 }

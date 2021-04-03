@@ -16,6 +16,7 @@ import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { OrdersDetailComponent } from './orders/orders-detail/orders-detail.component';
 import { OrdersControllerComponent } from './orders-controller/orders-controller.component';
 import { OrdersControllerDetailComponent } from './orders-controller/orders-controller-detail/orders-controller-detail.component';
+import { RecipeTypesResolverService } from './recipe-type/recipe-type-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -40,17 +41,21 @@ const appRoutes: Routes = [
     ]
   },
 
-  { path: 'recipe-type', component: RecipeTypeComponent,
+  { path: 'recipe-type', 
+  component: RecipeTypeComponent,
+  resolve: [RecipeTypesResolverService],
     children: [
       { path: '', component: RecipeTypeStartComponent },
       { path: 'new', component: RecipeTypeEditComponent },
       {
         path: ':id',
-        component: RecipeTypeEditComponent
+        component: RecipeTypeEditComponent,
+        resolve: [RecipeTypesResolverService],
       },
       {
         path: ':id/edit',
-        component: RecipeTypeEditComponent
+        component: RecipeTypeEditComponent,
+        resolve: [RecipeTypesResolverService],
       }
     ] },
 

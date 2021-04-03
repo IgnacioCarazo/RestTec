@@ -39,7 +39,7 @@ export class RecipeTypeListsComponent implements OnInit {
   }
 
   onFetchData() {
-    console.log("Tipos de Platos Actualizados")
+    this.dataStorageService.fetchRecipeTypes().subscribe();
   }
 
 

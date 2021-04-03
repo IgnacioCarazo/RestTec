@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Recipe } from './recipe.model';
 import { Ingredient } from '../shared/ingredient.model';
 import { RecipeType } from '../recipe-type/recipe-type.model';
+import { RecipeTypeService } from '../recipe-type/recipe-type.service';
 
 @Injectable()
 export class RecipeService {
@@ -11,7 +12,7 @@ export class RecipeService {
   recipe: Recipe;
   private recipes: Recipe[] = [];
 
-  constructor() {}
+  constructor(private recipeTypeService: RecipeTypeService) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
@@ -36,13 +37,34 @@ export class RecipeService {
 
  
 
-  addRecipe(recipe: Recipe) {
-    recipe.type = new RecipeType("Almuerzo","Se come al medio dia");
+  addRecipe(recipe: Recipe, recipeTypeName: string) {
+    const recipeTypeChecker = this.recipeTypeService.getRecipeTypeByName(recipeTypeName);
+  
+
+    if (recipeTypeChecker[1]) {
+      recipe.type = <RecipeType>recipeTypeChecker[0];
+    } else {
+      recipe.type = new RecipeType("Sin especificar", "Sin especificar");
+    }
+
     this.recipes.push(recipe);
     this.recipesChanged.next(this.recipes.slice());
   }
 
-  updateRecipe(index: number, newRecipe: Recipe) {
+  updateRecipe(index: number, newRecipe: Recipe, recipeTypeName: string) {
+    console.log(recipeTypeName);
+    const recipeTypeChecker = this.recipeTypeService.getRecipeTypeByName(recipeTypeName);
+    console.log(recipeTypeChecker[0]);
+    console.log(recipeTypeChecker[1]);
+
+
+    if (recipeTypeChecker[1]) {
+      newRecipe.type = <RecipeType>recipeTypeChecker[0];
+    } else {
+      newRecipe.type = new RecipeType("Sin especificar", "Sin especificar");
+    }
+
+
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
   }
