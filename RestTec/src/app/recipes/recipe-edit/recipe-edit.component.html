@@ -43,15 +43,14 @@
       <hr>
       <div class="row">
         <div class="col-xs-12">
-          <label for="recipeTypes" style="margin-right: 10px;">Tipo de Plato</label>
-            <select >
-              <option *ngFor="let recipeType of recipeTypes; let i = index" 
-              [value]="recipeTypes[i]" 
+          <label for="recipeType">Tipo de Receta</label>
+            <input
+              type="string"
+              id="recipeType"
+              class="form-control"
+              formControlName="recipeType"
               >
-                {{ recipeTypes[i].name }}
-              </option>
-            </select>
-              
+          
         </div>
       </div>
       <div class="row">

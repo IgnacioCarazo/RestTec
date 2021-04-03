@@ -11,11 +11,7 @@ export class RecipeTypeService {
   private recipeTypes: RecipeType[];
 
   constructor() {
-    this.recipeTypes = [
-      new RecipeType("Desayuno", "Comida que suele ser servida en horas tempranas del dia"),
-      new RecipeType("Almuerzo", "Comida que suele ser servida luego del desayuno"),
-      new RecipeType("Cena", "Comida que suele ser servida en la noche"),
-    ]
+    this.recipeTypes = []
   }
 
   setRecipeTypes(recipes: RecipeType[]) {
@@ -25,6 +21,17 @@ export class RecipeTypeService {
 
   getRecipeTypes() {
     return this.recipeTypes.slice();
+  }
+
+  getRecipeTypeByName(name: string) {
+    for (let recipeType of this.recipeTypes) {
+      console.log(recipeType.name);
+
+        if (recipeType.name == name) {
+          return [recipeType, true]; 
+        } 
+    }
+    return [new RecipeType('',''), false];
   }
 
   getRecipeType(index: number) {
