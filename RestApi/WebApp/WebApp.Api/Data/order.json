@@ -1,48 +1,215 @@
 [
-    
     {
-        "date": "22/3/2021",
-        "orderTime": "11:51",
-        "totalAmount": 3500,
-        "userID": 2017106391,
+        "date": "",
+        "orderTime": "",
+        "totalAmount": 0,
+        "userID": 432,
         "assigned": false,
-        "orderID": 4591,
-        "recipeIncluded": [ "pollo", "lasagna" ]
+        "orderID": 123,
+        "recipeIncluded": [
+            {
+                "recipeName": "Casado",
+                "price": 3400,
+                "calories": 700,
+                "prepareTime": -1,
+                "ingredients": [
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "bean",
+                        "amount": 1
+                    },
+                    {
+                        "name": "steak",
+                        "amount": 1
+                    },
+                    {
+                        "name": "tomatoe",
+                        "amount": 4
+                    }
+                ],
+                "finishTime": "12:00",
+                "type": {
+                    "name": "almuerzo",
+                    "description": "Disponible de 11:00 am hasta 1:00 pm"
+                },
+                "imagePath": "https://i.pinimg.com/originals/15/c2/24/15c22439b29413b081b8e9f459f7a354.jpg"
+            }
+        ],
+        "chefName": ""
     },
     {
-        "date": "22/3/2021",
-        "orderTime": "11:51",
-        "totalAmount": 4500,
-        "userID": 665663561,
+        "date": "",
+        "orderTime": "",
+        "totalAmount": 0,
+        "userID": 4645,
+        "assigned": false,
+        "orderID": 456,
+        "recipeIncluded": [
+            {
+                "recipeName": "Arroz con Pollo",
+                "price": 2200,
+                "calories": 300,
+                "prepareTime": -1,
+                "ingredients": [
+                    {
+                        "name": "chicken",
+                        "amount": 2
+                    },
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "tomatoe",
+                        "amount": 4
+                    }
+                ],
+                "finishTime": "4:00",
+                "type": {
+                    "name": "cena",
+                    "description": "Disponible de 3:00 pm hasta 7:00 am"
+                },
+                "imagePath": "https://images-gmi-pmc.edge-generalmills.com/8f518e2c-ad62-4480-b6e1-cdf10a9f6c08.jpg"
+            },
+            {
+                "recipeName": "Gallo Pinto",
+                "price": 2200,
+                "calories": 300,
+                "prepareTime": -1,
+                "ingredients": [
+                    {
+                        "name": "onion",
+                        "amount": 3
+                    },
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "bean",
+                        "amount": 1
+                    },
+                    {
+                        "name": "egg",
+                        "amount": 2
+                    },
+                    {
+                        "name": "baron",
+                        "amount": 5
+                    }
+                ],
+                "finishTime": "10:00",
+                "type": {
+                    "name": "desayuno",
+                    "description": "Disponible de 7:00 am hasta 10:00 am"
+                },
+                "imagePath": "https://www.recetascostarica.com/base/stock/Post/2-image/2-image_web.jpg0"
+            }
+        ],
+        "chefName": ""
+    },
+    {
+        "date": "04/04/2021",
+        "orderTime": "13:54:31",
+        "totalAmount": 7800,
+        "userID": 5453,
         "assigned": true,
-        "orderID": 8791,
-        "recipeIncluded": [ "pinto", "lasagna" ]
-    },
-    {
-        "date": "22/3/2021",
-        "orderTime": "11:51",
-        "totalAmount": 5500,
-        "userID": 246506391,
-        "assigned": false,
-        "orderID": 235,
-        "recipeIncluded": [ "pollo" ]
-    },
-    {
-        "date": "22/3/2021",
-        "orderTime": "11:51",
-        "totalAmount": 6500,
-        "userID": 3456391,
-        "assigned": true,
-        "orderID": 2345,
-        "recipeIncluded": [ "pinto" ]
-    },
-    {
-        "date": "22/3/2021",
-        "orderTime": "11:51",
-        "totalAmount": 7500,
-        "userID": 20434543,
-        "assigned": false,
-        "orderID": 662,
-        "recipeIncluded": [ "pollo", "lasagna" ]
+        "orderID": 789,
+        "recipeIncluded": [
+            {
+                "recipeName": "Arroz con Pollo",
+                "price": 2200,
+                "calories": 300,
+                "prepareTime": 7,
+                "ingredients": [
+                    {
+                        "name": "chicken",
+                        "amount": 2
+                    },
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "tomatoe",
+                        "amount": 4
+                    }
+                ],
+                "finishTime": "14:01:31",
+                "type": {
+                    "name": "cena",
+                    "description": "Disponible de 3:00 pm hasta 7:00 am"
+                },
+                "imagePath": "https://images-gmi-pmc.edge-generalmills.com/8f518e2c-ad62-4480-b6e1-cdf10a9f6c08.jpg"
+            },
+            {
+                "recipeName": "Casado",
+                "price": 3400,
+                "calories": 700,
+                "prepareTime": 7,
+                "ingredients": [
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "bean",
+                        "amount": 1
+                    },
+                    {
+                        "name": "steak",
+                        "amount": 1
+                    },
+                    {
+                        "name": "tomatoe",
+                        "amount": 4
+                    }
+                ],
+                "finishTime": "14:01:31",
+                "type": {
+                    "name": "almuerzo",
+                    "description": "Disponible de 11:00 am hasta 1:00 pm"
+                },
+                "imagePath": "https://i.pinimg.com/originals/15/c2/24/15c22439b29413b081b8e9f459f7a354.jpg"
+            },
+            {
+                "recipeName": "Gallo Pinto",
+                "price": 2200,
+                "calories": 300,
+                "prepareTime": 12,
+                "ingredients": [
+                    {
+                        "name": "onion",
+                        "amount": 3
+                    },
+                    {
+                        "name": "rice",
+                        "amount": 1
+                    },
+                    {
+                        "name": "bean",
+                        "amount": 1
+                    },
+                    {
+                        "name": "egg",
+                        "amount": 2
+                    },
+                    {
+                        "name": "baron",
+                        "amount": 5
+                    }
+                ],
+                "finishTime": "14:06:31",
+                "type": {
+                    "name": "desayuno",
+                    "description": "Disponible de 7:00 am hasta 10:00 am"
+                },
+                "imagePath": "https://www.recetascostarica.com/base/stock/Post/2-image/2-image_web.jpg0"
+            }
+        ],
+        "chefName": "Yasuo"
     }
 ]
