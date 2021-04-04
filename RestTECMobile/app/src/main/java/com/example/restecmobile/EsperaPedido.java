@@ -14,6 +14,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restecmobile.models.HttpsTrustManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Calendar;
@@ -56,13 +58,12 @@ public class EsperaPedido extends AppCompatActivity {
             }
         });
     }
-
     /**
      *  Por medio de un POST permite enviar el feedback y volver a la ventana principal
      * @param orderID
      */
     private void jsonParseFeedback(int orderID){
-        String postUrl = "http://localhost:5001";
+        String postUrl =getString(R.string.URL_SOURCE);
         Date fecha= Calendar.getInstance().getTime();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JSONObject postData = new JSONObject();
@@ -86,6 +87,7 @@ public class EsperaPedido extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
+        HttpsTrustManager.allowAllSSL();
         requestQueue.add(jsonObjectRequest);
     }
 }

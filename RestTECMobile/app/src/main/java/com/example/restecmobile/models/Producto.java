@@ -1,4 +1,4 @@
-package com.example.restecmobile;
+package com.example.restecmobile.models;
 import java.io.Serializable;
 import java.util.List;
 /**

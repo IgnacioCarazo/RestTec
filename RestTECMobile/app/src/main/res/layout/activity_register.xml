@@ -16,7 +16,7 @@
         android:layout_weight="9"
         android:ems="10"
         android:hint="@string/ID"
-        android:inputType="textPersonName"
+        android:inputType="numberSigned"
         android:drawablePadding="10dp"/>
 
     <EditText
@@ -113,7 +113,7 @@
         android:layout_weight="9"
         android:ems="10"
         android:hint="@string/telephone"
-        android:inputType="textPersonName"
+        android:inputType="numberSigned"
         android:drawablePadding="10dp"/>
     <EditText
         android:id="@+id/registerEmailUser"
