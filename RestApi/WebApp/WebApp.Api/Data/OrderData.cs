@@ -54,5 +54,39 @@ namespace WebApp.Api.Data
             File.WriteAllText(@"Data/order.json", strResultJson);
             return orderList;
         }
+
+        static public Order manageOrder(string chef, int orderID)
+        {
+            var order = OrderData.getOrderData(orderID);
+            var orderList = OrderData.deleteData(orderID);
+            order.chefName = chef;
+            order.assigned = true;
+            int totalAmount = 0;
+            int chefTime = 0;
+            foreach(var _order in orderList)
+            {
+                if (_order.chefName == chef)
+                {
+                    chefTime += 3;
+                }
+            }
+            foreach(var recipe in order.recipeIncluded)
+            {
+                int recipeTime = 0;
+                foreach (var ingredient in recipe.ingredients)
+                {
+                    recipeTime += ingredient.amount;
+                }
+                recipe.prepareTime = recipeTime + chefTime;
+                totalAmount += recipe.price;
+                DateTime orderDate = DateTime.Parse(order.orderTime);
+                DateTime recipesTime = orderDate.AddMinutes(recipe.prepareTime);
+                recipe.finishTime = recipesTime.ToString("HH:mm:ss");
+            }
+            order.totalAmount = totalAmount;
+            orderList.Add(order);
+            OrderData.writeData(orderList);
+            return order;
+        }
     }
 }

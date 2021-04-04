@@ -20,6 +20,8 @@ namespace WebApp.Api.Model
         //indica numero para identificar un pedido
         public int orderID { get; set; }
         //platos incluidos en el pedido
-        public List<string> recipeIncluded { get; set; }
+        public List<Recipe> recipeIncluded { get; set; }
+        //nombre del chef que tomo el pedido para prepararlo
+        public string chefName { get; set; }
     }
 }
