@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import com.example.restecmobile.models.Producto;
+
 import java.io.Serializable;
 import java.util.List;
 /**
@@ -91,7 +94,6 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     public class ProductosViewHolder extends RecyclerView.ViewHolder {
         TextView tvNomProducto, tvIngredientes, tvPrecio, tvCalories, tvPrepareTime;
         CheckBox cbCarro;
-
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNomProducto = itemView.findViewById(R.id.tvNomProducto);

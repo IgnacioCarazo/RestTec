@@ -11,17 +11,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restecmobile.models.HttpsTrustManager;
 import com.example.restecmobile.MainActivity;
 import com.example.restecmobile.R;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.Calendar;
-import java.util.Date;
 /**
  * @class LoginActivity
- * Crea el login, busca los ids de la vista, obtiene sus botones y da la funcion al dar click
+ * Crea el login, busca los ids de la vista, obtiene sus botones y les agrega su funcion
  * @author JosephJ
  */
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         TextView registro = (TextView)findViewById(R.id.textViewRegistro);
+        TextView eliminar = (TextView)findViewById(R.id.textViewEliminar);
         Button btnLogin = (Button)findViewById(R.id.buttonLogin);
         final EditText  usuarioT = (EditText)findViewById(R.id.loginUser);
         final EditText  claveT = (EditText)findViewById(R.id.loginPassword);
@@ -45,54 +43,79 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.finish();
             }
         });
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Al click set obtiene el id y contrasena para eliminar
+             * @param v
+             */
+            @Override
+            public void onClick(View v) {
+                final String usuario = usuarioT.getText().toString();
+                parseJSONEliminar(usuario);
+            }
+        });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             /**
-             * Se obtiene los valores insertados por usuario en Login, crea un listener para la respuesta del request
-             * obtiene data de la respuesta y abre la vista principal
+             * Se obtiene los valores insertados por usuario en Login, crea un listener para esperar la respuesta del
+             * request REST y abre la vista principal
              * @param v
              */
             @Override
             public void onClick(View v) {
                 final String usuario = usuarioT.getText().toString();
                 final String clave = claveT.getText().toString();
-                //jsonParse(usuario,clave);
-                Intent principal = new Intent(LoginActivity.this, MainActivity.class);
-                LoginActivity.this.startActivity(principal);
-                LoginActivity.this.finish();
+                parseJSONLogin(usuario,clave);
             }
         });
     }
     /**
-     * Manejo del solicitud POST Rest por parte del login
+     * Manejo de la solicitud POST por parte del login
      */
-    private void parseJSON(String correo,String clave){
-        String postUrl = getString(R.string.URL_SOURCE)+correo+getString(R.string.slash)+clave;
-        Date fecha= Calendar.getInstance().getTime();
+    private void parseJSONLogin(String correo,String clave){
+        String getUrl = getString(R.string.URL_SOURCE)+"api/Client/login/"+correo+getString(R.string.slash)+clave;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, postUrl , null,
-                new Response.Listener<JSONObject>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, getUrl,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                        try {
-                            JSONObject object=response;
-                            if(!object.getBoolean("success")){
-                                Intent principal = new Intent(LoginActivity.this, MainActivity.class);
-                                LoginActivity.this.startActivity(principal);
-                                LoginActivity.this.finish();
-                            }else {
-                                Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                    public void onResponse(String response) {
+                        String acceso = "No client found or Access denied";
+                        if(response.contains(acceso)){
+                            Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Login SuccessFull", Toast.LENGTH_LONG).show();
+                            Intent principal = new Intent(LoginActivity.this, MainActivity.class);
+                            LoginActivity.this.startActivity(principal);
+                            LoginActivity.this.finish();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                System.out.println("ERRORVOLLEY"+error.toString());
             }
         });
-        requestQueue.add(jsonObjectRequest);
+        HttpsTrustManager.allowAllSSL();
+        requestQueue.add(stringRequest);
+    }
+    /**
+     * Manejo de la solicitud DELETE por parte del login
+     */
+    private void parseJSONEliminar(String ID){
+        String getUrl = getString(R.string.URL_SOURCE)+"api/Client/delete"+getString(R.string.slash)+ID;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, getUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(getApplicationContext(),"Remove SuccessFully", Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Remove UnsuccessFully", Toast.LENGTH_LONG).show();
+            }
+        });
+        HttpsTrustManager.allowAllSSL();
+        requestQueue.add(stringRequest);
     }
 }

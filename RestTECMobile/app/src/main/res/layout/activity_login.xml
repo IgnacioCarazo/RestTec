@@ -51,4 +51,10 @@
         android:layout_height="50dp"
         android:text="@string/Register"
         android:gravity="center"/>
+    <TextView
+        android:id="@+id/textViewEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/Eliminar"
+        android:gravity="center"/>
 </LinearLayout>

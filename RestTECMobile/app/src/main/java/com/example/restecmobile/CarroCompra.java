@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,12 +15,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.restecmobile.models.HttpsTrustManager;
+import com.example.restecmobile.models.Producto;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 /**
  * @class CarroCompra
@@ -116,6 +116,7 @@ public class CarroCompra extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();;
             }
         });
+        HttpsTrustManager.allowAllSSL();
         requestQueue.add(jsonObjectRequest);
     }
 }
