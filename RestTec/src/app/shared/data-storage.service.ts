@@ -4,11 +4,14 @@ import { map, tap } from 'rxjs/operators';
 
 import { Recipe } from '../recipes/recipe.model';
 import { RecipeService } from '../recipes/recipe.service';
-import { User } from './user.model';
+
 import { HeaderService } from '../header/header.service';
 import { Observable } from 'rxjs';
 import { RecipeType } from '../recipe-type/recipe-type.model';
 import { RecipeTypeService } from '../recipe-type/recipe-type.service';
+import { User } from './user.model';
+import { Order } from '../orders/order.model';
+import { OrdersService } from '../orders/orders.service';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -21,7 +24,8 @@ export class DataStorageService {
   constructor(private http: HttpClient, 
               private recipeService: RecipeService, 
               private headerService: HeaderService,
-              private recipeTypeService: RecipeTypeService) {}
+              private recipeTypeService: RecipeTypeService,
+              private orderService: OrdersService) {}
 
 
   /**
@@ -53,8 +57,7 @@ export class DataStorageService {
   }
 
   deleteRecipe(recipe: Recipe) {
-    this.http.delete('https://localhost:5001/api/Recipe/delete/' + recipe.recipeName, this.httpOptions);
-    this.fetchRecipes();
+    this.http.delete<Recipe>('https://localhost:5001/api/Recipe/delete/' + recipe.recipeName, this.httpOptions);
   }
 
   storeRecipe(recipe: Recipe) {
@@ -144,6 +147,33 @@ export class DataStorageService {
   /**
   * http requests de ordenes
   */
+   fetchOrders() {
+    return this.http
+      .get<Order[]>(
+        'https://localhost:5001/api/Order'
+      )
+      .pipe(
+        map(orders => {
+          return orders.map(order => {
+            return {
+              ...order
+            };
+          });
+        }),
+        tap(orders => {
+          this.orderService.setAllOrders(orders);
+        })
+      )
+  }
 
+  assignOrder(chefName: string, orderID: number): Observable<Order> {
+    console.log(chefName, orderID);
+    return this.http.get<Order>('https://localhost:5001/api/Order/assign/'+ chefName + '/' + orderID);
+  }
+
+  deleteOrder(orderID: number) {
+    this.http.delete<Recipe>('https://localhost:5001/api/Order/delete/' + orderID).subscribe();
+    this.fetchOrders();
+  }
   
 }

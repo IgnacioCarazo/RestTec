@@ -24,7 +24,6 @@ export class RecipeEditComponent implements OnInit {
     private recipeService: RecipeService,
     private router: Router,
     private dataStorageService: DataStorageService,
-    private formBuilder: FormBuilder,
     private recipeTypeService: RecipeTypeService
   ) {
     
@@ -73,7 +72,6 @@ export class RecipeEditComponent implements OnInit {
         ])
       })
     );
-    console.log(this.recipeForm.value.recipeType);
   }
 
   onDeleteIngredient(index: number) {

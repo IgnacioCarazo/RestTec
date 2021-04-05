@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HeaderService } from 'src/app/header/header.service';
 import { Order } from 'src/app/orders/order.model';
 import { OrdersService } from 'src/app/orders/orders.service';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 
 @Component({
   selector: 'app-orders-controller-detail',
@@ -15,7 +17,9 @@ export class OrdersControllerDetailComponent implements OnInit {
 
   constructor(private ordersService: OrdersService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private headerService: HeaderService,
+              private dataStorageService: DataStorageService) {
   }
 
   ngOnInit() {
@@ -29,9 +33,8 @@ export class OrdersControllerDetailComponent implements OnInit {
   }
 
 
-  onUpdateOrder() {
-    this.order.chef = "Ignacio Carazo";
-    this.ordersService.updateOrder(this.id, this.order)
+  onCompleteOrder() {
+    this.dataStorageService.deleteOrder(this.order.orderID);
   }
 
 }

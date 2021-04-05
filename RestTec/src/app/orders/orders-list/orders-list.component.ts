@@ -21,13 +21,13 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.ordersService.ordersChanged
+    this.subscription = this.ordersService.unAssignedOrdersChanged
       .subscribe(
         (orders: Order[]) => {
           this.orders = orders;
         }
       );
-    this.orders = this.ordersService.getAllOrders();
+    this.orders = this.ordersService.getAllUnAssignedOrders();
   }
 
 
@@ -37,11 +37,10 @@ export class OrdersListComponent implements OnInit, OnDestroy {
 
 
   onSaveData() {
-    this.dataStorageService.storeRecipes();
   }
 
   onFetchData() {
-    this.dataStorageService.fetchRecipes().subscribe();
+    this.dataStorageService.fetchOrders();
   }
 
 }
