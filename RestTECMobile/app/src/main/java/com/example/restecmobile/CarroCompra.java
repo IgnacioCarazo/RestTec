@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.restecmobile.models.HttpsTrustManager;
 import com.example.restecmobile.models.Producto;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,11 +35,13 @@ public class CarroCompra extends AppCompatActivity {
     AdaptadorCarroCompra adaptador;
     RecyclerView rvListaCarro;
     TextView tvTotal;
+    private int clientID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carro_compra);
         carroCompra = (List<Producto>) getIntent().getSerializableExtra("CarroCompras");
+        clientID = getIntent().getIntExtra("clientID",0);
         rvListaCarro = findViewById(R.id.rvListaCarro);
         rvListaCarro.setLayoutManager(new GridLayoutManager(CarroCompra.this, 1));
         tvTotal = findViewById(R.id.tvTotal);
@@ -64,16 +64,19 @@ public class CarroCompra extends AppCompatActivity {
                         jsonProduct.put("price", pedido.getPrice());
                         jsonProduct.put("calories", pedido.getCalories());
                         jsonProduct.put("prepareTime", pedido.getPrepareTime());
-                        JSONObject jsonIngredientesPut = new JSONObject();
+                        JSONArray jsonIngredientes = new JSONArray();
                         for(int k = 0; k< pedido.getIngredients().size();k++){
+                            JSONObject jsonIngredientesPut = new JSONObject();
                             jsonIngredientesPut.put("name", pedido.getIngredients().get(k).getName());
                             jsonIngredientesPut.put("amount",pedido.getIngredients().get(k).getAmount());
+                            jsonIngredientes.put(jsonIngredientesPut);
                         }
-                        jsonProduct.put("ingredients", jsonIngredientesPut);
+                        jsonProduct.put("ingredients", jsonIngredientes);
                         jsonProduct.put("finishTime", pedido.getFinishTime());
                         jsonType.put("name",pedido.getType().getName());
                         jsonType.put("description",pedido.getType().getDescripcion());
                         jsonProduct.put("type", jsonType);
+                        jsonProduct.put("imagePath","");
                         jsonFactura.put(jsonProduct);
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
@@ -87,23 +90,30 @@ public class CarroCompra extends AppCompatActivity {
             }
         });
     }
-
     /**
      *  Por medio de un POST se hace el pedido y pasa a ventana de espera
      * @param jsonfactura
      */
     private void jsonParse(JSONArray jsonfactura){
-        String postUrl = getString(R.string.URL_SOURCE);
+        String postUrl = getString(R.string.URL_SOURCE)+"api/Order/addOrder";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JSONObject jsonPOST = new JSONObject();
         try {
-            jsonPOST.put("orden",jsonfactura);
+            jsonPOST.put("date","");
+            jsonPOST.put("orderTime","");
+            jsonPOST.put("userID",clientID);
+            jsonPOST.put("assigned",false);
+            jsonPOST.put("orderID",0);
+            jsonPOST.put("recipeIncluded",jsonfactura);
+            jsonPOST.put("chefName","");
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+            System.out.println("json: "+ e);
         }
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, jsonPOST, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                System.out.println("RESPONSEE"+response);
                 Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
                 intent.putExtra("Espera de pedido", (Serializable) carroCompra);
@@ -112,13 +122,14 @@ public class CarroCompra extends AppCompatActivity {
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error) {System.out.println(error);
+
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();;
             }
         });
         HttpsTrustManager.allowAllSSL();
         requestQueue.add(jsonObjectRequest);
     }
-}
 
+}
 
