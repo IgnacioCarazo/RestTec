@@ -172,7 +172,11 @@ export class DataStorageService {
   }
 
   deleteOrder(orderID: number) {
-    this.http.delete<Recipe>('https://localhost:5001/api/Order/delete/' + orderID).subscribe();
+    this.http.delete('https://localhost:5001/api/Order/delete/' + orderID).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
     this.fetchOrders();
   }
   

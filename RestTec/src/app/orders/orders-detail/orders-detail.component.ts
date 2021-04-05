@@ -33,7 +33,9 @@ export class OrdersDetailComponent implements OnInit {
 
 
   onUpdateOrder() {
-    this.dataStorageService.assignOrder(this.headerService.user.name, this.order.orderID);
+    this.ordersService.deleteOrderFromAssigned(this.id);
+    this.dataStorageService.assignOrder(this.headerService.user.name, this.order.orderID).subscribe();
+    this.router.navigate(['/orders']);
     this.dataStorageService.fetchOrders();
   }
 
