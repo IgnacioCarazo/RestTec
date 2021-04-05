@@ -27,14 +27,20 @@ export class RecipeTypeDetailComponent implements OnInit {
       );
   }
 
-  
-
-  onEditRecipe() {
+  /**
+    * @name onEditRecipe()
+    * @description It sets the link to 'edit' and by default loads the edit component.
+    */
+  onEditRecipeType() {
     this.router.navigate(['edit'], {relativeTo: this.route});
     
   }
 
-  onDeleteRecipe() {
+  /**
+    * @name onDeleteRecipe()
+    * @description deletes a recipe type. 
+    */
+  onDeleteRecipeType() {
     this.recipeTypeService.deleteRecipeType(this.id);
     this.router.navigate(['/recipe-type']);
   }

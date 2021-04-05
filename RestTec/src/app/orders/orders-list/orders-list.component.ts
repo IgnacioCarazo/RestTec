@@ -36,9 +36,11 @@ export class OrdersListComponent implements OnInit, OnDestroy {
   }
 
 
-  onSaveData() {
-  }
-
+  /**
+  * @name onFetchData()
+  * @description  In case the autofetching doesn't work this method will load manually the data when tha respective
+  * button to do it is used.
+  */
   onFetchData() {
     this.dataStorageService.fetchOrders();
   }

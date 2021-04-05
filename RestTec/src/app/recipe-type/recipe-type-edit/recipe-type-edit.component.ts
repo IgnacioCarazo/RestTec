@@ -31,14 +31,13 @@ export class RecipeTypeEditComponent implements OnInit {
     });
   }
 
-  onDelete() {
-    this.recipeTypeService.deleteRecipeType(this.id);
-    this.router.navigate(['/recipe-type']);
-    this.dataStorageService.storeRecipeTypes();
-  }
 
-  onSubmit() {
-    
+  /**
+    * @name onSubmit()
+    * @description Whether it's on edit mode or on a new recipe mode this method will update or add a recipe with the 
+    * value of the recipeForm.
+    */
+  onSubmit() {   
     if (this.editMode) {
       this.recipeTypeService.updateRecipeType(this.id, this.recipeForm.value);
       this.dataStorageService.storeRecipeTypes();
@@ -51,11 +50,19 @@ export class RecipeTypeEditComponent implements OnInit {
   }
 
 
-
+  /**
+    * @name onCancel()
+    * @description It sets the link to the previous one.
+    */
   onCancel() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  /**
+    * @name initForm()
+    * @description It sets the initial values of the recipe type in the form if it's on edit mode. If it's on
+    * new recipe mode this values will be 'empty'.
+    */
   private initForm() {
     let recipeTypeName = '';
     let recipeTypeDescription = '';

@@ -30,14 +30,20 @@ export class RecipeTypeListsComponent implements OnInit {
     this.recipeTypes = this.recipeTypeService.getRecipeTypes();
   }
 
+  /**
+    * @name onNewRecipeType
+    * @description It sets the link to 'new'
+    */
   onNewRecipeType() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
-  onSaveData() {
-    console.log("Tipos de Platos Guardados")
-  }
 
+   /**
+  * @name onFetchData()
+  * @description  In case the autofetching doesn't work this method will load manually the data when tha respective
+  * button to do it is used.
+  */
   onFetchData() {
     this.dataStorageService.fetchRecipeTypes().subscribe();
   }

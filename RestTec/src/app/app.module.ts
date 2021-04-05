@@ -24,7 +24,6 @@ import { RecipeTypeService } from './recipe-type/recipe-type.service';
 import { OrdersComponent } from './orders/orders.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportsService } from './reports/reports.service';
-import { LoginComponent } from './login/login.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { OrdersService } from './orders/orders.service';
 import { OrdersListComponent } from './orders/orders-list/orders-list.component';
@@ -35,6 +34,7 @@ import { OrdersControllerDetailComponent } from './orders-controller/orders-cont
 import { OrdersControllerListComponent } from './orders-controller/orders-controller-list/orders-controller-list.component';
 import { OrdersControllerItemComponent } from './orders-controller/orders-controller-list/orders-controller-item/orders-controller-item.component';
 import { HeaderService } from './header/header.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,6 @@ import { HeaderService } from './header/header.service';
     RecipeTypeStartComponent,
     OrdersComponent,
     ReportsComponent,
-    LoginComponent,
     AdminOrdersComponent,
     OrdersListComponent,
     OrdersDetailComponent,
@@ -64,6 +63,7 @@ import { HeaderService } from './header/header.service';
     OrdersControllerDetailComponent,
     OrdersControllerListComponent,
     OrdersControllerItemComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

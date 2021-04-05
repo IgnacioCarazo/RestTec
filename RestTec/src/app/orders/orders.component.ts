@@ -12,12 +12,4 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSaveData() {
-    console.log("Pedidos Guardados")
-  }
-
-  onFetchData() {
-    console.log("Pedidos Actualizados")
-  }
-
 }
