@@ -33,6 +33,10 @@ export class OrdersControllerDetailComponent implements OnInit {
   }
 
 
+  /**
+    * @name onCompleteOrder
+    * @description It lets the backend know that an order has been completed and deletes it from the assigned orders.
+    */
   onCompleteOrder() {
     this.dataStorageService.deleteOrder(this.order.orderID);
     this.router.navigate(['/orders-controller']);

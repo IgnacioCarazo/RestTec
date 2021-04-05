@@ -31,19 +31,31 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.recipes = this.recipeService.getRecipes();
   }
 
+  /**
+  * @name onNewRecipe
+  * @description Sets the link to 'new'
+  */
   onNewRecipe() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
+
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-
+  /**
+  * @name onSaveData()
+  * @description Saves the data manually in case it doesn't work the autosave.
+  */
   onSaveData() {
     this.dataStorageService.storeRecipes();
   }
 
+  /**
+  * @name onFetchData()
+  * @description Fetches data manually in case the autofetch doesn't work
+  */
   onFetchData() {
     this.dataStorageService.fetchRecipes().subscribe();
   }

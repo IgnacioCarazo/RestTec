@@ -21,6 +21,7 @@ export class OrdersDetailComponent implements OnInit {
               private dataStorageService: DataStorageService) {
   }
 
+ 
   ngOnInit() {
     this.route.params
       .subscribe(
@@ -31,9 +32,13 @@ export class OrdersDetailComponent implements OnInit {
       );
   }
 
-
+  /**
+  * @name onUpdateOrder()
+  * @description A method which is called when a chef wants to get a recipe. It assigns the respective order
+  * to the chef and adds 
+  */
   onUpdateOrder() {
-    this.ordersService.deleteOrderFromAssigned(this.id);
+    this.ordersService.deleteOrderFromUnAssigned(this.id);
     this.dataStorageService.assignOrder(this.headerService.user.name, this.order.orderID).subscribe();
     this.router.navigate(['/orders']);
     this.dataStorageService.fetchOrders();

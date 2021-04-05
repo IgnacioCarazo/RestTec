@@ -11,13 +11,4 @@ export class OrdersControllerComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  onSaveData() {
-    console.log("Pedidos Guardados")
-  }
-
-  onFetchData() {
-    console.log("Pedidos Actualizados")
-  }
-
 }

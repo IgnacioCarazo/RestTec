@@ -27,7 +27,7 @@ export class OrdersControllerListComponent implements OnInit {
           this.orders = orders;
         }
       );
-    this.orders = this.ordersService.getOrdersAssigned();
+    this.orders = this.ordersService.getAllAssignedOrders();
   }
 
 
@@ -36,10 +36,10 @@ export class OrdersControllerListComponent implements OnInit {
   }
 
 
-  onSaveData() {
-    console.log("Save");
-  }
-
+  /**
+    * @name onFetchData()
+    * @description In case the autofectching doesn't work it it fetches the data manually.
+    */
   onFetchData() {
     this.dataStorageService.fetchOrders();
   }
