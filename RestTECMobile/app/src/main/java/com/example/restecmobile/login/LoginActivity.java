@@ -11,11 +11,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.restecmobile.models.HttpsTrustManager;
 import com.example.restecmobile.MainActivity;
 import com.example.restecmobile.R;
+import org.json.JSONException;
+import org.json.JSONObject;
 /**
  * @class LoginActivity
  * Crea el login, busca los ids de la vista, obtiene sus botones y les agrega su funcion
@@ -69,33 +72,39 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     /**
-     * Manejo de la solicitud POST por parte del login
+     * Manejo de la solicitud GET por parte del login
      */
     private void parseJSONLogin(String correo,String clave){
         String getUrl = getString(R.string.URL_SOURCE)+"api/Client/login/"+correo+getString(R.string.slash)+clave;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, getUrl,
-                new Response.Listener<String>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, getUrl, null, new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(JSONObject response) {
                         String acceso = "No client found or Access denied";
-                        if(response.contains(acceso)){
+                        if(response.toString().contains(acceso)){
                             Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
                         }else {
-                            Toast.makeText(getApplicationContext(),"Login SuccessFull", Toast.LENGTH_LONG).show();
-                            Intent principal = new Intent(LoginActivity.this, MainActivity.class);
-                            LoginActivity.this.startActivity(principal);
-                            LoginActivity.this.finish();
+                            try {
+                                Toast.makeText(getApplicationContext(),"Login SuccessFull", Toast.LENGTH_LONG).show();
+                                Intent principal = new Intent(LoginActivity.this, MainActivity.class);
+                                int clientID = response.getInt("iD");
+                                principal.putExtra("clientID",clientID);
+                                LoginActivity.this.startActivity(principal);
+                                LoginActivity.this.finish();
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("ERRORVOLLEY"+error.toString());
-            }
-        });
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),"User Login UnSuccessFull", Toast.LENGTH_LONG).show();
+                    }
+                });
         HttpsTrustManager.allowAllSSL();
-        requestQueue.add(stringRequest);
+        requestQueue.add(jsonObjectRequest);
     }
     /**
      * Manejo de la solicitud DELETE por parte del login
