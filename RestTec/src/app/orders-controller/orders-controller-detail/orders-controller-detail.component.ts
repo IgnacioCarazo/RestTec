@@ -35,6 +35,8 @@ export class OrdersControllerDetailComponent implements OnInit {
 
   onCompleteOrder() {
     this.dataStorageService.deleteOrder(this.order.orderID);
+    this.router.navigate(['/orders-controller']);
+    this.ordersService.completeOrderAssigned(this.id);
   }
 
 }

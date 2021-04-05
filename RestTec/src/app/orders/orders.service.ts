@@ -90,5 +90,15 @@ export class OrdersService {
       this.allOrders.splice(index, 1);
       this.ordersChanged.next(this.allOrders.slice());
     }
+
+    deleteOrderFromAssigned(index: number) {
+      this.assignedOrders.splice(index, 1);
+      this.assignedOrdersChanged.next(this.assignedOrders.slice());
+    }
+
+    completeOrderAssigned(index: number) {
+      this.assignedOrders.splice(index, 1);
+      this.assignedOrdersChanged.next(this.assignedOrders.slice());
+    }
   
   }
