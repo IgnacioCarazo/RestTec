@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { HeaderService } from 'src/app/header/header.service';
+import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Order } from '../order.model';
 import { OrdersService } from '../orders.service';
 
@@ -16,7 +17,8 @@ export class OrdersDetailComponent implements OnInit {
   constructor(private ordersService: OrdersService,
               private headerService: HeaderService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dataStorageService: DataStorageService) {
   }
 
   ngOnInit() {
@@ -31,9 +33,8 @@ export class OrdersDetailComponent implements OnInit {
 
 
   onUpdateOrder() {
-    this.order.chef = this.headerService.user.name;
-    this.order.assigned = true;
-    this.ordersService.updateOrder(this.id, this.order)
+    this.dataStorageService.assignOrder(this.headerService.user.name, this.order.orderID);
+    this.dataStorageService.fetchOrders();
   }
 
   

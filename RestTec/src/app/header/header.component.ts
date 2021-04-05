@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrdersService } from '../orders/orders.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { User } from '../shared/user.model';
 import { HeaderService } from './header.service';
@@ -21,7 +22,8 @@ export class HeaderComponent implements OnInit {
     constructor(private dataStorageService: DataStorageService,
         private route: ActivatedRoute,
         private router: Router,
-        private headerService: HeaderService){
+        private headerService: HeaderService,
+        private orderService: OrdersService){
         this.login = dataStorageService.isAuthorized;
     }
 
@@ -59,11 +61,12 @@ export class HeaderComponent implements OnInit {
     userAdmitted(access: boolean) {
         if (this.isAdmin && access) {
             console.log(this.user);
-
             this.dataStorageService.isAuthorized = true;
             this.login = this.dataStorageService.isAuthorized;
             this.router.navigate(['/admin-orders']);
         } else if (!this.isAdmin && !access){
+            this.orderService.setAssignedOrders(this.user.name);
+            this.orderService.setUnAssignedOrders(this.user.name);
             this.dataStorageService.isAuthorized = true;
             this.login = this.dataStorageService.isAuthorized;
             this.router.navigate(['/orders-controller'])

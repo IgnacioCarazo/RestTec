@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Order } from '../orders/order.model';
 import { OrdersService } from '../orders/orders.service';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-admin-orders',
@@ -9,15 +11,23 @@ import { OrdersService } from '../orders/orders.service';
 })
 export class AdminOrdersComponent implements OnInit {
   orders: Order[];
+  subscription: Subscription;
 
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService,
+              private dataStorageService: DataStorageService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.subscription = this.ordersService.ordersChanged
+      .subscribe(
+        (orders: Order[]) => {
+          this.orders = orders;
+        }
+      );
     this.orders = this.ordersService.getAllOrders();
   }
 
   onFetchData() {
-    console.log("Se actualizaron los pedidos activos");
+    this.dataStorageService.fetchOrders().subscribe();
   }
 
 }

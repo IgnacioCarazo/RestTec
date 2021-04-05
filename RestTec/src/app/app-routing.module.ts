@@ -17,6 +17,8 @@ import { OrdersDetailComponent } from './orders/orders-detail/orders-detail.comp
 import { OrdersControllerComponent } from './orders-controller/orders-controller.component';
 import { OrdersControllerDetailComponent } from './orders-controller/orders-controller-detail/orders-controller-detail.component';
 import { RecipeTypesResolverService } from './recipe-type/recipe-type-resolver.service';
+import { AdminOrdersResolver } from './admin-orders/admin-orders-resolver.service';
+import { OrdersResolver } from './orders/orders-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
       }
     ] },
 
-  { path: 'orders', component: OrdersComponent, 
+  { path: 'orders', component: OrdersComponent,
+  resolve: [OrdersResolver], 
     children: [
       {
         path: ':id',
@@ -68,6 +71,7 @@ const appRoutes: Routes = [
 
     ]},
   { path: 'orders-controller', component: OrdersControllerComponent,
+  resolve: [AdminOrdersResolver],
   children: [
     {
       path: ':id',
@@ -76,7 +80,7 @@ const appRoutes: Routes = [
   ] },
   { path: 'reports', component: ReportsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin-orders', component: AdminOrdersComponent },
+  { path: 'admin-orders', component: AdminOrdersComponent, resolve: [AdminOrdersResolver]  },
 
 
 

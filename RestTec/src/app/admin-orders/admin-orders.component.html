@@ -14,12 +14,20 @@
         style="cursor: pointer"
         *ngFor="let order of orders; let i = index"
       >
-      <h4 class="list-group-item-heading">Pedido {{ order.id }}</h4>
-      <p class="list-group-item-text">Chef: {{ order.chef }}</p>
-      <p class="list-group-item-text">Plato: {{ order.recipes[0].name }}</p>
-      <p class="list-group-item-text">Asignada: {{ order.assigned }}</p>
-
+      <h4 class="list-group-item-heading">Pedido {{ order.orderID }}</h4>
+      <p 
+      class="list-group-item-text" 
+      style="margin-top: 10px;"
+      *ngIf="order.assigned; else notAssigned">Chef: {{ order.chefName }}</p>
+      <p class="list-group-item-text" style="margin-top: 10px;">Platos del Pedido:</p>
+      <p 
+      class="list-group-item-text"
+      *ngFor="let recipe of order.recipeIncluded; let x = index"
+      >   - {{ order.recipeIncluded[x].recipeName }}</p>
       </a>
     </ul>
   </div>
 </div>
+<ng-template  #notAssigned>
+  Sin Asignar
+</ng-template>

@@ -3,18 +3,22 @@ import { Recipe } from "../recipes/recipe.model";
 import { User } from "../shared/user.model";
 
 export class Order {
-    id: number;
+    date: string;
+    userID: number;
+    orderID: number;
     assigned: boolean;
-    chef: string;
-    recipes: Recipe[];
-    time: number;
+    chefName: string;
+    recipeIncluded: Recipe[];
+    orderTime: string;
+    totalAmount: number;
 
-    constructor(id: number, assigned: boolean, chef: string, recipes: Recipe[], time: number) {
-    this.id = id;
+
+    constructor(userID: number, assigned: boolean, chefName: string, recipeIncluded: Recipe[], orderTime: string) {
+    this.userID = userID;
     this.assigned = assigned;
-    this.chef = chef;
-    this.recipes = recipes;
-    this.time = time;
+    this.chefName = chefName;
+    this.recipeIncluded = recipeIncluded;
+    this.orderTime = orderTime;
     }
     
 }

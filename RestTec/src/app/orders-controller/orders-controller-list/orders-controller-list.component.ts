@@ -21,7 +21,7 @@ export class OrdersControllerListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscription = this.ordersService.ordersChanged
+    this.subscription = this.ordersService.assignedOrdersChanged
       .subscribe(
         (orders: Order[]) => {
           this.orders = orders;
@@ -41,7 +41,7 @@ export class OrdersControllerListComponent implements OnInit {
   }
 
   onFetchData() {
-    console.log("Fetch");
+    this.dataStorageService.fetchOrders();
   }
 
 
