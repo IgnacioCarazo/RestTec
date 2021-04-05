@@ -63,14 +63,14 @@ namespace WebApp.Api.Data
             order.assigned = true;
             int totalAmount = 0;
             int chefTime = 0;
-            foreach(var _order in orderList)
+            foreach (var _order in orderList)
             {
                 if (_order.chefName == chef)
                 {
                     chefTime += 3;
                 }
             }
-            foreach(var recipe in order.recipeIncluded)
+            foreach (var recipe in order.recipeIncluded)
             {
                 int recipeTime = 0;
                 foreach (var ingredient in recipe.ingredients)
@@ -87,6 +87,34 @@ namespace WebApp.Api.Data
             orderList.Add(order);
             OrderData.writeData(orderList);
             return order;
+        }
+
+
+        static public bool generateID(int number)
+        {
+            var orderList = OrderData.getOrderData();
+            foreach (var order in orderList)
+            {
+                if (order.orderID == number)
+                {
+                    return false;
+
+                }
+            }
+            return true;
+        }
+
+
+        static public int randomNumber()
+        {
+            Random r = new Random();
+            int id = r.Next(1, 10000);
+            while (generateID(id)==false)
+            {
+                r = new Random();
+                id = r.Next(1, 10000);
+            }
+            return id;
         }
     }
 }

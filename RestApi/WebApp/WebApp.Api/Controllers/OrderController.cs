@@ -92,14 +92,14 @@ namespace WebApp.Api.Controllers
             DateTime actualTime = DateTime.Now;
             _order.date = actualTime.ToString("dd/MM/yyyy");
             _order.orderTime = actualTime.ToString("HH:mm:ss");
+            _order.orderID = OrderData.randomNumber();
             orders.Add(_order);
             if (orders.Count == 0)
             {
                 return NotFound("No List Found.");
             }
-
             OrderData.writeData(orders);
-            return Ok("Order Added Successfully");
+            return Ok(_order);
         }
         
         //elimina un pedido segun su numero de orden
