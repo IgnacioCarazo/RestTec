@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class RecipeType implements Serializable {
     private String name;
     private String descripcion;
+    public RecipeType(){ this.name=null;this.descripcion=null; }
     public RecipeType(String name, String descripcion){ this.name=name;this.descripcion=descripcion; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
 import com.example.restecmobile.models.Producto;
-
 import java.io.Serializable;
 import java.util.List;
 /**
@@ -26,12 +24,14 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
     Button btnVerCarro;
     List<Producto> listaProductos;
     List<Producto> carroCompra;
-    public AdaptadorProductos(Context context, TextView tvCantProductos, Button btnVerCarro, List<Producto> listaProductos, List<Producto> carroCompra) {
+    int clientID;
+    public AdaptadorProductos(Context context, TextView tvCantProductos, Button btnVerCarro, List<Producto> listaProductos, List<Producto> carroCompra,int clientID) {
         this.context = context;
         this.tvCantProductos = tvCantProductos;
         this.btnVerCarro = btnVerCarro;
         this.listaProductos = listaProductos;
         this.carroCompra = carroCompra;
+        this.clientID = clientID;
     }
     /**
      * @param viewGroup Crea una vista a partir de este parametro e inserta el Layout item_rv_products
@@ -61,7 +61,6 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
         productosViewHolder.tvIngredientes.setText(Ingredientes);
         productosViewHolder.tvPrecio.setText("" + listaProductos.get(i).getPrice() + " colones");
         productosViewHolder.tvCalories.setText("" + listaProductos.get(i).getCalories() + " calorias");
-        productosViewHolder.tvPrepareTime.setText("Tiempo de preparacion: " + listaProductos.get(i).getPrepareTime() );
         productosViewHolder.cbCarro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -78,6 +77,7 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CarroCompra.class);
+                intent.putExtra("clientID", clientID);
                 intent.putExtra("CarroCompras", (Serializable) carroCompra);
                 context.startActivity(intent);
             }
@@ -92,7 +92,7 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
      * Extiende de ReciclerView, obtiene los valores de la Vista del producto
      */
     public class ProductosViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNomProducto, tvIngredientes, tvPrecio, tvCalories, tvPrepareTime;
+        TextView tvNomProducto, tvIngredientes, tvPrecio, tvCalories;
         CheckBox cbCarro;
         public ProductosViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,7 +100,6 @@ public class AdaptadorProductos extends RecyclerView.Adapter<AdaptadorProductos.
             tvIngredientes = itemView.findViewById(R.id.tvIngredientes);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvCalories = itemView.findViewById(R.id.tvCalories);
-            tvPrepareTime = itemView.findViewById(R.id.tvPrepareTime);
             cbCarro = itemView.findViewById(R.id.cbCarro);
         }
     }
