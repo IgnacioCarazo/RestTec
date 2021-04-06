@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         try {
                             JSONArray recipes = response;
-                            System.out.println(response);
                             for (int i = 0; i <recipes.length(); i++) {
                                 JSONObject platillo = recipes.getJSONObject(i);
                                 JSONArray jsonIngredientes = platillo.getJSONArray("ingredients");
@@ -78,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             adaptador = new AdaptadorProductos(MainActivity.this, tvCantProductos,btnVerCarro,listaProductos,carroCompras,clientID);
                             rvListaProductos.setAdapter(adaptador);
                         } catch (JSONException e) {
-                            System.out.println("ERROR"+e);
+                            System.out.println("JSONERRORMAIN"+e);
                         }
                     }
                 }, new Response.ErrorListener() {

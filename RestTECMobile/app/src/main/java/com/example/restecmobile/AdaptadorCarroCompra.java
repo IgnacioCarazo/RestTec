@@ -2,11 +2,14 @@ package com.example.restecmobile;
 import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.restecmobile.models.Producto;
+import java.time.LocalDate;
 import java.util.List;
 /**
  * @class AdaptadorCarroCompras
@@ -25,7 +28,7 @@ public class AdaptadorCarroCompra extends RecyclerView.Adapter<AdaptadorCarroCom
         for (int i = 0; i < carroCompra.size(); i++) {
             total = total + Double.parseDouble("" + carroCompra.get(i).getPrice());
         }
-        tvTotal.setText("" + total);
+        tvTotal.setText("" + total+" colones");
     }
     /**
      * @param viewGroup el cual se añade a ProductosViewHolder del carro de Compras

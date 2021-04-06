@@ -83,10 +83,6 @@ public class CarroCompra extends AppCompatActivity {
                     }
                 }
                 jsonParse(jsonFactura);
-                Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
-                intent.putExtra("Espera de pedido", (Serializable) carroCompra);
-                CarroCompra.this.startActivity(intent);
-                CarroCompra.this.finish();
             }
         });
     }
@@ -113,23 +109,27 @@ public class CarroCompra extends AppCompatActivity {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, jsonPOST, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println("RESPONSEE"+response);
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                int orderID=0;
+                try {
+                    orderID= response.getInt("orderID");
+                } catch (JSONException e) {
+                    System.out.println("jsonRespuesta: "+ e);
+                }
                 Intent intent = new Intent(CarroCompra.this, EsperaPedido.class);
-                intent.putExtra("Espera de pedido", (Serializable) carroCompra);
+                intent.putExtra("ordenID",orderID);
+                intent.putExtra("clientID",clientID);
+                intent.putExtra("CarroCompras", (Serializable) carroCompra);
                 CarroCompra.this.startActivity(intent);
                 CarroCompra.this.finish();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {System.out.println(error);
-
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();;
             }
         });
         HttpsTrustManager.allowAllSSL();
         requestQueue.add(jsonObjectRequest);
     }
-
 }
 

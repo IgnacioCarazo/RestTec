@@ -116,7 +116,12 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(),"Remove SuccessFully", Toast.LENGTH_LONG).show();
+                        String acceso = "Cliente Deleted Successully";
+                        if(response.toString().contains(acceso)){
+                            Toast.makeText(getApplicationContext(),"User Removed SuccessFull", Toast.LENGTH_LONG).show();
+                        }else {
+                            Toast.makeText(getApplicationContext(),"User Removed UnSuccessFull", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

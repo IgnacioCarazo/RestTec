@@ -9,6 +9,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+/**
+ * @class HttpsTrustManager
+ * Certificado para lograr comunicacion
+ * @author JosephJ
+ */
 public class HttpsTrustManager implements X509TrustManager {
     private static TrustManager[] trustManagers;
     private static final X509Certificate[] _AcceptedIssuers = new X509Certificate[]{};
