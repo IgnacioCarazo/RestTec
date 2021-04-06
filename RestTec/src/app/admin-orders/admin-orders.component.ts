@@ -27,14 +27,6 @@ export class AdminOrdersComponent implements OnInit {
     this.orders = this.ordersService.getAllOrders();
   }
 
-  /**
-  * @name onFetchData()
-  * @description In case the autoloading of data doesn't work there's a button in the web page which calls this method
-  * and will load the data.
-  */
-  onFetchData() {
-    this.dataStorageService.fetchOrders().subscribe();
-  }
-  
+
 
 }

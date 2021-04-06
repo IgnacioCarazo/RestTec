@@ -36,13 +36,7 @@ export class OrdersControllerListComponent implements OnInit {
   }
 
 
-  /**
-    * @name onFetchData()
-    * @description In case the autofectching doesn't work it it fetches the data manually.
-    */
-  onFetchData() {
-    this.dataStorageService.fetchOrders();
-  }
+
 
 
 }
