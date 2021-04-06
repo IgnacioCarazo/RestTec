@@ -23,4 +23,5 @@
     <string name="URL_SOURCE">https://10.0.2.2:5001/</string>
     <string name="slash">/</string>
     <string name="Eliminar">Eliminar Usuario</string>
+    <string name="RegisterUpdate">Registro/Actualizacion</string>
 </resources>

@@ -29,19 +29,6 @@ public class Cliente {
         this.email = null;
         this.password = null;
     }
-    public Cliente(int ID, String name, String primaryLastName, String secondLastName, String province, String canton, String distrito, String birthday, int celNum, String email, String password) {
-        this.ID = ID;
-        this.name = name;
-        this.primaryLastName = primaryLastName;
-        this.secondLastName = secondLastName;
-        this.province = province;
-        this.canton = canton;
-        this.distrito = distrito;
-        this.birthday = birthday;
-        this.celNum = celNum;
-        this.email = email;
-        this.password = password;
-    }
     public int getID() { return ID; }
     public void setID(int ID) { this.ID = ID; }
 
