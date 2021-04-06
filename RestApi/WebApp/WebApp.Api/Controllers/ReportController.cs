@@ -62,10 +62,12 @@ namespace WebApp.Api.Controllers
             return Ok("FeedBack Saved");
         }
 
-        [HttpGet("feed")]
+        [HttpGet("stars")]
         public IActionResult feedGets()
         {
-            return Ok(ReportData.getFeedBackData());
+            var _recipeReports = ReportData.getRecipeReportData();
+            _recipeReports = _recipeReports.OrderByDescending(stars => stars.totalStars).ToList();
+            return Ok(_recipeReports);
         }
 
     }
