@@ -6,11 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Api.Model;
 
+/// <summary>
+/// clase que maneja toda la data de los reportes
+/// </summary>
 namespace WebApp.Api.Data
 {
     public class ReportData
     {
-
+        /// <summary>
+        /// metodo para escribir data del reporte de los clientes en la base de datos
+        /// </summary>
+        /// <param name="creportList">lista ClientReport que se desea agregar</param>
+        /// <returns>int siempre 0</returns>
         static public int writeClientReportData(List<ClientReport> creportList)
         {
             string strResultJson = JsonConvert.SerializeObject(creportList);
@@ -18,6 +25,12 @@ namespace WebApp.Api.Data
             return 0;
         }
 
+        /// <summary>
+        /// metodo para agregar informacion a los reportes de los clientes
+        /// </summary>
+        /// <param name="id">int que indica el id del cliente</param>
+        /// <param name="recipeCount">cantidad de platos que ha comprado el cliente</param>
+        /// <returns>ClientReport</returns>
         static public ClientReport clientReportData(int id,int recipeCount)
         {
             string readFile = File.ReadAllText(@"Data/clientReport.json");
@@ -37,6 +50,10 @@ namespace WebApp.Api.Data
             return creport;
         }
 
+        /// <summary>
+        /// metodo para obtener todos los reportes de los clientes
+        /// </summary>
+        /// <returns>lista de ClientReport</returns>
         static public List<ClientReport> getClientReportData()
         {
             string readFile = File.ReadAllText(@"Data/clientReport.json");
@@ -46,7 +63,11 @@ namespace WebApp.Api.Data
         }
 
 
-
+        /// <summary>
+        /// metodo para escribir data sobre reportes de recetas
+        /// </summary>
+        /// <param name="recipeReports">lista de RecipeReport que se desea agregar</param>
+        /// <returns>int siempre 0</returns>
         static public int writeRecipeReportData(List<RecipeReport> recipeReports)
         {
             string strResultJson = JsonConvert.SerializeObject(recipeReports);
@@ -54,7 +75,11 @@ namespace WebApp.Api.Data
             return 0;
         }
 
-
+        /// <summary>
+        /// metodo para agregar informacon a los reportes de platos
+        /// </summary>
+        /// <param name="recipeIncluded">lista de Recipe</param>
+        /// <returns>lista de RecipeReport</returns>
         static public List<RecipeReport> recipeReportData(List<Recipe> recipeIncluded)
         {
             string readFile = File.ReadAllText(@"Data/recipeReport.json");
@@ -78,6 +103,10 @@ namespace WebApp.Api.Data
             return reports;
         }
 
+        /// <summary>
+        /// metodo para obtener reportes de platos
+        /// </summary>
+        /// <returns>lista de RecipeReport </returns>
         static public List<RecipeReport> getRecipeReportData()
         {
             string readFile = File.ReadAllText(@"Data/recipeReport.json");
@@ -85,7 +114,11 @@ namespace WebApp.Api.Data
             return reportList;
         }
 
-
+        /// <summary>
+        /// metodo para escribir data de feedback en la base de datos
+        /// </summary>
+        /// <param name="feedbacks">lista de feedback a agregar</param>
+        /// <returns>int siempre 0</returns>
         static public int writeFeedBackData(List<FeedBack> feedbacks)
         {
             string strResultJson = JsonConvert.SerializeObject(feedbacks);
@@ -93,6 +126,10 @@ namespace WebApp.Api.Data
             return 0;
         }
 
+        /// <summary>
+        /// metodo para obtener informacion de los feedback
+        /// </summary>
+        /// <returns>lsta de FeedBack</returns>
         static public List<FeedBack> getFeedBackData()
         {
             string readFile = File.ReadAllText(@"Data/feedback.json");
@@ -100,9 +137,13 @@ namespace WebApp.Api.Data
             return feedbacks;
         }
 
+        /// <summary>
+        /// metodo para agregar informacion sobre reportes de feedback
+        /// </summary>
+        /// <param name="feedback">feedback que se desea obtener informacion</param>
+        /// <returns>lista de ReportRecipe</returns>
         static public List<RecipeReport> recipeFeedBackData(FeedBack feedback)
         {
-
             var reports = getRecipeReportData();
             foreach (var report in reports)
             {

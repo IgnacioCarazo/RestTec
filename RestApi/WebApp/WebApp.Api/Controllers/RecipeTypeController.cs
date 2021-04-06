@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 using WebApp.Api.Data;
 using WebApp.Api.Model;
 
+/// <summary>
+/// Controlador que maneja las peticiones y respuestas del tipo de platillo
+/// </summary>
 namespace WebApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RecipeTypeController : ControllerBase
     {
-
-         List<RecipeType> _types = new List<RecipeType>()
-        {
-            new RecipeType(){name="Desayuno",description="Disponible de 7:00 am a 10:00 am"},
-            new RecipeType(){name="Almuerzo",description="Disponible de 11:00 am a 1:00 pm"},
-            new RecipeType(){name="Cena",description="Disponible de 3:00 pm a 7:00 pm"}
-        };
-
+        /// <summary>
+        /// metodo para obtener todos los tipos de platillos
+        /// </summary>
+        /// <returns>Lista de RecipeType en formato json</returns>
         [HttpGet]
         public IActionResult Gets()
         {
@@ -28,6 +27,11 @@ namespace WebApp.Api.Controllers
             return Ok(types);
         }
 
+        /// <summary>
+        /// metodo para agregar un nuevo tipo de platillo
+        /// </summary>
+        /// <param name="type">RecipeType que se desea agregar </param>
+        /// <returns>nueva lista de RecipeType en formato json</returns>
         [HttpPost("newType")]
         public IActionResult SaveType(RecipeType type)
         {
@@ -41,6 +45,11 @@ namespace WebApp.Api.Controllers
             return Ok(_types);
         }
 
+        /// <summary>
+        /// metodo para actualizar un tipo de platillo
+        /// </summary>
+        /// <param name="typeList">Lista RecipeType nueva para actualizar</param>
+        /// <returns>Lista nueva en formato json</returns>
         [HttpPut("updateType")]
         public IActionResult updateType(List<RecipeType> typeList)
         {
@@ -52,6 +61,11 @@ namespace WebApp.Api.Controllers
             return Ok(typeList);
         }
 
+        /// <summary>
+        /// metodo para eliminar un RecipeType
+        /// </summary>
+        /// <param name="name">nombre del tipo de platillo que se desea eliminar</param>
+        /// <returns>Nueva lista de RecipeType en formato json</returns>
         [HttpDelete("delete/{name}")]
         public IActionResult DeleteType(string name)
         {

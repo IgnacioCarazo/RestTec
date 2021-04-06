@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.Api.Model
 {
-    //Clase que indica
+    /// <summary>
+    /// clase que modela la data de los usuarios admin y chef
+    /// </summary>
     public class User
     {       
         //nombre del usuario
