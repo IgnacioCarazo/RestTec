@@ -1,18 +1,1 @@
-[
-    
-    {
-        "clientName": "Andres",
-        "clientID": 123,
-        "recipeCount": 3
-    },
-    {
-        "clientName": "Gerardo",
-        "clientID": 345,
-        "recipeCount": 6
-    },
-    {
-        "clientName": "Veronica",
-        "clientID": 567,
-        "recipeCount": 4
-    }
-]
+[{"clientName":"Gerardo","clientID":345,"recipeCount":6},{"clientName":"Veronica","clientID":567,"recipeCount":4},{"clientName":"Andres","clientID":123,"recipeCount":10},{"clientName":"Lucia","clientID":789,"recipeCount":4}]

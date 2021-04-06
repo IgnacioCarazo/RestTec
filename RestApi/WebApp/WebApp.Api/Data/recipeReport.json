@@ -1,14 +1,1 @@
-[
-    {
-        "recipeName": "Gallo Pinto",
-        "profits": 9100,
-        "sold": 3,
-        "totalStars": 16
-    },
-    {
-        "recipeName": "Casado",
-        "profits": 6800,
-        "sold": 2,
-        "totalStars": 4
-    }
-]
+[{"recipeName":"Gallo Pinto","profits":9100,"sold":3,"totalStars":16},{"recipeName":"Casado","profits":6800,"sold":2,"totalStars":4},{"recipeName":"Pasta Bolognesa","profits":4500,"sold":1,"totalStars":0},{"recipeName":"Tres Leches","profits":2000,"sold":2,"totalStars":0},{"recipeName":"Palomitas","profits":500,"sold":1,"totalStars":0},{"recipeName":"Fanta Uva","profits":750,"sold":1,"totalStars":0},{"recipeName":"Pizza de Pepperoni","profits":2500,"sold":1,"totalStars":0},{"recipeName":"Coca Cola","profits":1890,"sold":2,"totalStars":0},{"recipeName":"Helado de Chocolate","profits":1000,"sold":1,"totalStars":0},{"recipeName":"Hamburguesa con papas","profits":7000,"sold":2,"totalStars":0}]
