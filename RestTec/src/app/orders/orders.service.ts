@@ -30,12 +30,29 @@ export class OrdersService {
     }
 
     /**
+    * @name getOrderFromAll()
+    * @argument {number} index  -A number indicating an index
+    * @description Gets an order by its index from the array of al the orders 
+    */
+     setOrderToAssigned(order: Order) {
+      this.assignedOrders.push(order);
+    }
+
+    /**
     * @name getOrderFromAssigned()
     * @argument {number} index -A number indicating an index
     * @description Gets an order by its index from the array of the assigned orders.
     */
     getOrderFromAssigned(index: number) {
       return this.assignedOrders[index];
+    }
+    /**
+    * @name getOrderFromUnAssigned()
+    * @argument {number} index -A number indicating an index
+    * @description Gets an order by its index from the array of the unassigned orders.
+    */
+     getOrderFromUnAssigned(index: number) {
+      return this.unAssignedOrders[index];
     }
 
     /**
@@ -118,6 +135,9 @@ export class OrdersService {
     deleteOrder(index: number) {
       this.allOrders.splice(index, 1);
       this.ordersChanged.next(this.allOrders.slice());
+      this.assignedOrdersChanged.next(this.assignedOrders.slice());
+      this.unAssignedOrdersChanged.next(this.unAssignedOrders.slice());
+
     }
 
     /**
@@ -125,9 +145,12 @@ export class OrdersService {
     * @argument {number} index
     * @description It deletes an order from the unassigned orders
     */
-    deleteOrderFromUnAssigned(index: number) {
-      this.assignedOrders.splice(index, 1);
+    deleteOrderFromUnAssigned(index: number, order: Order) {
+      this.unAssignedOrders.splice(index, 1);
+      this.setOrderToAssigned(order);
+      this.ordersChanged.next(this.allOrders.slice());
       this.assignedOrdersChanged.next(this.assignedOrders.slice());
+      this.unAssignedOrdersChanged.next(this.unAssignedOrders.slice());
     }
 
     /**
@@ -137,7 +160,9 @@ export class OrdersService {
     */
     completeOrderAssigned(index: number) {
       this.assignedOrders.splice(index, 1);
+      this.ordersChanged.next(this.allOrders.slice());
       this.assignedOrdersChanged.next(this.assignedOrders.slice());
+      this.unAssignedOrdersChanged.next(this.unAssignedOrders.slice());
     }
   
   }

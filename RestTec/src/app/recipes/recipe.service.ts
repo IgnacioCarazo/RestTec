@@ -67,6 +67,7 @@ export class RecipeService {
   */
   addRecipe(recipe: Recipe, recipeTypeName: string) {
     const recipeTypeChecker = this.recipeTypeService.getRecipeTypeByName(recipeTypeName);
+    console.log(recipeTypeChecker);
     if (recipeTypeChecker[1]) {
       recipe.type = <RecipeType>recipeTypeChecker[0];
     } else {
@@ -85,6 +86,7 @@ export class RecipeService {
   */
   updateRecipe(index: number, newRecipe: Recipe, recipeTypeName: string) {
     const recipeTypeChecker = this.recipeTypeService.getRecipeTypeByName(recipeTypeName);
+    console.log(recipeTypeChecker);
     if (recipeTypeChecker[1]) {
       newRecipe.type = <RecipeType>recipeTypeChecker[0];
     } else {

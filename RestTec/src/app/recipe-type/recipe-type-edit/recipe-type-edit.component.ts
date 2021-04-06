@@ -78,6 +78,12 @@ export class RecipeTypeEditComponent implements OnInit {
       description: new FormControl(recipeTypeDescription, Validators.required)
     });
   }
+
+  onDelete() {
+    this.recipeTypeService.deleteRecipeType(this.id);
+    this.router.navigate(['/recipe-type']);
+    this.dataStorageService.storeRecipeTypes();
+  }
 }
 
 

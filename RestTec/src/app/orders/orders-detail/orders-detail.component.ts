@@ -27,7 +27,7 @@ export class OrdersDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
-          this.order = this.ordersService.getOrderFromAll(this.id);
+          this.order = this.ordersService.getOrderFromUnAssigned(this.id);
         }
       );
   }
@@ -38,7 +38,8 @@ export class OrdersDetailComponent implements OnInit {
   * to the chef and adds 
   */
   onUpdateOrder() {
-    this.ordersService.deleteOrderFromUnAssigned(this.id);
+    this.order.chefName = this.headerService.user.name;
+    this.ordersService.deleteOrderFromUnAssigned(this.id, this.order);
     this.dataStorageService.assignOrder(this.headerService.user.name, this.order.orderID).subscribe();
     this.router.navigate(['/orders']);
     this.dataStorageService.fetchOrders();
