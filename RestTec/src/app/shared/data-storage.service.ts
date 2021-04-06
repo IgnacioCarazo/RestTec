@@ -12,6 +12,9 @@ import { RecipeTypeService } from '../recipe-type/recipe-type.service';
 import { User } from './user.model';
 import { Order } from '../orders/order.model';
 import { OrdersService } from '../orders/orders.service';
+import { RecipeReport } from './recipe-report.model';
+import { ReportsService } from '../reports/reports.service';
+import { ClientReport } from './client-report.model';
 
 @Injectable({ providedIn: 'root' })
 export class DataStorageService {
@@ -25,11 +28,14 @@ export class DataStorageService {
               private recipeService: RecipeService, 
               private headerService: HeaderService,
               private recipeTypeService: RecipeTypeService,
-              private orderService: OrdersService) {}
+              private orderService: OrdersService,
+              private reportsService: ReportsService) {}
 
 
   /**
+   * ------------------------------------------------
   * http request del login
+  * ------------------------------------------------
   */
 
   /**
@@ -51,7 +57,9 @@ export class DataStorageService {
   }
 
 /**
+ * ------------------------------------------------
   * http requests de recetas
+  * ------------------------------------------------
   */
 
   /**
@@ -122,7 +130,9 @@ export class DataStorageService {
       )
   }
   /**
+   * ------------------------------------------------
   * http requests de tipo de recetas
+  * ------------------------------------------------
   */
 
   /**
@@ -185,7 +195,9 @@ export class DataStorageService {
   }
 
   /**
+   * ------------------------------------------------
   * http requests de ordenes
+  * ------------------------------------------------
   */
 
    /**
@@ -233,6 +245,106 @@ export class DataStorageService {
       }
     );
     this.fetchOrders();
+  }
+
+
+  /**
+   * -----------------------------------------------
+  * http requests de reportes
+  * ------------------------------------------------
+  */
+
+  /**
+  * @name fetchRecipeSold()
+  * @description Sends an http get request to fetch the orders array from the database.
+  * @returns An observable of an array of orders.
+  */
+   fetchRecipeSold() {
+    return this.http
+      .get<RecipeReport[]>(
+        'https://localhost:5001/api/Order'
+      )
+      .pipe(
+        map(recipesSold => {
+          return recipesSold.map(recipeSold => {
+            return {
+              ...recipeSold
+            };
+          });
+        }),
+        tap(recipesSold => {
+          this.reportsService.setRecipesSold(recipesSold);
+        })
+      )
+  }
+  /**
+  * @name fetchRecipeProfit()
+  * @description Sends an http get request to fetch the orders array from the database.
+  * @returns An observable of an array of orders.
+  */
+   fetchRecipeProfit() {
+    return this.http
+      .get<RecipeReport[]>(
+        'https://localhost:5001/api/Order'
+      )
+      .pipe(
+        map(recipesProfit => {
+          return recipesProfit.map(recipeProfit => {
+            return {
+              ...recipeProfit
+            };
+          });
+        }),
+        tap(recipesProfit => {
+          this.reportsService.setRecipesProfit(recipesProfit);
+        })
+      )
+  }
+  /**
+  * @name fetchOrders()
+  * @description Sends an http get request to fetch the orders array from the database.
+  * @returns An observable of an array of orders.
+  */
+   fetchRecipeFeedback() {
+    return this.http
+      .get<RecipeReport[]>(
+        'https://localhost:5001/api/Order'
+      )
+      .pipe(
+        map(recipesFeedback => {
+          return recipesFeedback.map(recipeFeedback => {
+            return {
+              ...recipeFeedback
+            };
+          });
+        }),
+        tap(recipesFeedback => {
+          this.reportsService.setRecipesFeedBack(recipesFeedback);
+        })
+      )
+  }
+  /**
+  * @name fetchOrders()
+  * @description Sends an http get request to fetch the orders array from the database.
+  * @returns An observable of an array of orders.
+  */
+   fetchClient() {
+    return this.http
+      .get<ClientReport[]>(
+        'https://localhost:5001/api/Order'
+      )
+      .pipe(
+        map(clients => {
+          return clients.map(client => {
+            return {
+              ...client
+            };
+          });
+        }),
+        tap(clients => {
+          this.reportsService.setClients(clients);
+        })
+      )
   }
   
 }

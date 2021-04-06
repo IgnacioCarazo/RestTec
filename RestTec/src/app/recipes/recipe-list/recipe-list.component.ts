@@ -43,22 +43,4 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  /**
-  * @name onSaveData()
-  * @description Saves the data manually in case it doesn't work the autosave.
-  */
-  onSaveData() {
-    this.dataStorageService.storeRecipes();
-  }
-
-  /**
-  * @name onFetchData()
-  * @description Fetches data manually in case the autofetch doesn't work
-  */
-  onFetchData() {
-    this.dataStorageService.fetchRecipes().subscribe();
-  }
-
-
 }
