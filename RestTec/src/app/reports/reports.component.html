@@ -1,4 +1,10 @@
 <div class="row">
+    <div class="col-xs-12">
+      <div type="button" class="btn btn-primary" (click)="onFetchData()">Actualizar</div>
+    </div>
+  </div>
+  <hr>
+<div class="row">
     <div class="col-xs-10">
       <h3>Top 10 Platos Vendidos</h3>
       <hr>
@@ -8,7 +14,8 @@
           style="cursor: pointer"
           *ngFor="let recipe of recipesSold; let i = index"
         >
-          {{ recipe }}
+        <h4 class="list-group-item-heading">{{ recipe.recipeName }}</h4>
+        <h5>Cantidad vendidos: {{ recipe.sold }}</h5>
         </a>
       </ul>
     </div>
@@ -23,7 +30,8 @@
           style="cursor: pointer"
           *ngFor="let recipe of recipesProfit; let i = index"
         >
-          {{ recipe }}
+        <h4 class="list-group-item-heading">{{ recipe.recipeName }}</h4>
+        <h5>Ganancia de {{ recipe.profits }} colones</h5>
         </a>
       </ul>
     </div>
@@ -38,7 +46,8 @@
           style="cursor: pointer"
           *ngFor="let recipe of recipesFeedback; let i = index"
         >
-          {{ recipe }}
+        <h4 class="list-group-item-heading">{{ recipe.recipeName }}</h4>
+        <h5>{{ recipe.totalStars }} estrellas</h5>
         </a>
       </ul>
     </div>
@@ -53,7 +62,8 @@
           style="cursor: pointer"
           *ngFor="let client of clients; let i = index"
         >
-          {{ client }}
+        <h4 class="list-group-item-heading">{{ client.clientName }}</h4>
+        <h5>Ha hecho {{ client.recipeCount }} pedidos</h5>
         </a>
       </ul>
     </div>

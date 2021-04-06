@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { ClientReport } from '../shared/client-report.model';
 import { DataStorageService } from '../shared/data-storage.service';
 import { RecipeReport } from '../shared/recipe-report.model';
 import { ReportsService } from './reports.service';
@@ -23,6 +24,8 @@ export class ReportsComponent implements OnInit {
     //this.recipesProfit = this.reportsService.getRecipesProfit();
     //this.recipesFeedback = this.reportsService.getRecipesFeedBack();
     //this.clients = this.reportsService.getClients();
+
+    // Subscription para recipes sold
     this.subscription = this.reportsService.recipesSoldChanged
       .subscribe(
         (recipesSold: RecipeReport[]) => {
@@ -30,5 +33,39 @@ export class ReportsComponent implements OnInit {
         }
       );
     this.recipesSold = this.reportsService.getRecipesSold();
+
+    // Subscription para recipes profit
+    this.subscription = this.reportsService.recipesProfitChanged
+      .subscribe(
+        (recipesProfit: RecipeReport[]) => {
+          this.recipesProfit = recipesProfit;
+        }
+      );
+    this.recipesProfit = this.reportsService.getRecipesProfit();
+
+    // Subscription para recipes feedback
+    this.subscription = this.reportsService.recipesFeedbackChanged
+      .subscribe(
+        (recipesFeedback: RecipeReport[]) => {
+          this.recipesFeedback = recipesFeedback;
+        }
+      );
+    this.recipesFeedback = this.reportsService.getRecipesFeedBack();
+
+    // Subscription para clients
+    this.subscription = this.reportsService.clientsChanged
+      .subscribe(
+        (clients: ClientReport[]) => {
+          this.clients = clients;
+        }
+      );
+    this.clients = this.reportsService.getClients();
+  }
+
+  onFetchData() {
+    this.dataStorageService.fetchRecipesFeedback().subscribe();
+    this.dataStorageService.fetchRecipesProfit().subscribe();
+    this.dataStorageService.fetchRecipesSold().subscribe();
+    this.dataStorageService.fetchClients().subscribe();
   }
 }

@@ -259,10 +259,10 @@ export class DataStorageService {
   * @description Sends an http get request to fetch the orders array from the database.
   * @returns An observable of an array of orders.
   */
-   fetchRecipeSold() {
+   fetchRecipesSold() {
     return this.http
       .get<RecipeReport[]>(
-        'https://localhost:5001/api/Order'
+        'https://localhost:5001/api/Report/sold'
       )
       .pipe(
         map(recipesSold => {
@@ -274,6 +274,7 @@ export class DataStorageService {
         }),
         tap(recipesSold => {
           this.reportsService.setRecipesSold(recipesSold);
+          console.log(recipesSold);
         })
       )
   }
@@ -282,10 +283,10 @@ export class DataStorageService {
   * @description Sends an http get request to fetch the orders array from the database.
   * @returns An observable of an array of orders.
   */
-   fetchRecipeProfit() {
+   fetchRecipesProfit() {
     return this.http
       .get<RecipeReport[]>(
-        'https://localhost:5001/api/Order'
+        'https://localhost:5001/api/Report/profits'
       )
       .pipe(
         map(recipesProfit => {
@@ -297,6 +298,8 @@ export class DataStorageService {
         }),
         tap(recipesProfit => {
           this.reportsService.setRecipesProfit(recipesProfit);
+          console.log(recipesProfit);
+
         })
       )
   }
@@ -305,10 +308,10 @@ export class DataStorageService {
   * @description Sends an http get request to fetch the orders array from the database.
   * @returns An observable of an array of orders.
   */
-   fetchRecipeFeedback() {
+   fetchRecipesFeedback() {
     return this.http
       .get<RecipeReport[]>(
-        'https://localhost:5001/api/Order'
+        'https://localhost:5001/api/Report/stars'
       )
       .pipe(
         map(recipesFeedback => {
@@ -320,6 +323,8 @@ export class DataStorageService {
         }),
         tap(recipesFeedback => {
           this.reportsService.setRecipesFeedBack(recipesFeedback);
+          console.log(recipesFeedback);
+
         })
       )
   }
@@ -328,10 +333,10 @@ export class DataStorageService {
   * @description Sends an http get request to fetch the orders array from the database.
   * @returns An observable of an array of orders.
   */
-   fetchClient() {
+   fetchClients() {
     return this.http
       .get<ClientReport[]>(
-        'https://localhost:5001/api/Order'
+        'https://localhost:5001/api/Report/client'
       )
       .pipe(
         map(clients => {
@@ -343,6 +348,8 @@ export class DataStorageService {
         }),
         tap(clients => {
           this.reportsService.setClients(clients);
+          console.log(clients);
+
         })
       )
   }
