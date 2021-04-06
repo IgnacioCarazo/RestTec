@@ -1,0 +1,17 @@
+[
+    {
+        "clientName": "Andres",
+        "clientID": 123,
+        "recipeCount": 3
+    },
+    {
+        "clientName": "Gerardo",
+        "clientID": 345,
+        "recipeCount": 6
+    },
+    {
+        "clientName": "Veronica",
+        "clientID": 567,
+        "recipeCount": 2
+    }
+]

@@ -72,14 +72,25 @@ namespace WebApp.Api.Controllers
         public IActionResult Get(int id)
         {
             var _order = OrderData.getOrderData(id);
-            if (_order == null)
+            if(_order == null)
             {
-                return NotFound("No order found.");
+                return NotFound("Null Order");
             }
             return Ok(_order);
         }
-        
-        
+
+        [HttpGet("verify/{id}")]
+        public IActionResult verifyOrder(int id)
+        {
+            var _order = OrderData.getOrderData(id);
+            if (_order.assigned == false)
+            {
+                return Ok("False");
+            }
+            return Ok("True");
+        }
+
+
         //guarda un nuevo pedido
         [HttpPost("addOrder")]
         public IActionResult SaveOrder(Order _order)
@@ -91,6 +102,8 @@ namespace WebApp.Api.Controllers
             _order.orderID = OrderData.randomNumber();
             orders.Add(_order);
             OrderData.writeData(orders);
+            ReportData.clientReportData(_order.userID, _order.recipeIncluded.Count);
+            ReportData.recipeReportData(_order.recipeIncluded);
             return Ok(_order);
         }
         
