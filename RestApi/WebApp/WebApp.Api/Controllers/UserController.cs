@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 using WebApp.Api.Data;
 using WebApp.Api.Model;
 
+/// <summary>
+/// controlador que maneja las peticiones de los usuarios
+/// </summary>
 namespace WebApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        
-        List<User> users = new List<User>() { 
-            new User(){name="Haziel",email="haziel@gmail.com",password="haziel123",access=true,credentials=true},
-            new User(){name="Joseph",email="joseph@gmail.com",password="joseph123",access=false},
-            new User(){name="Ignacio",email="ignacio@gmai.com",password="ignacio123",access=true},
-            new User(){name="Yasuo",email="yasuo@gmail.com",password="yasuo123",access=false}
-        };
-        
- 
+        /// <summary>
+        /// metodo para verificar si el usuario es un chef y si los credenciales coinciden
+        /// </summary>
+        /// <param name="email">string email del chef</param>
+        /// <param name="password">string contresena del email</param>
+        /// <returns>User en formato json</returns>
         [HttpGet("chef/{email}/{password}")]
         public IActionResult chefAutorization(string email, string password)
         {
@@ -33,6 +33,12 @@ namespace WebApp.Api.Controllers
             return Ok(_user);
         }
         
+        /// <summary>
+        /// metodo para verificar si el usuario es un admin y si los credenciales coinciden
+        /// </summary>
+        /// <param name="email">string del email del usuario admin</param>
+        /// <param name="password">contrasena del email admin</param>
+        /// <returns>User en formato json</returns>
         [HttpGet("admin/{email}/{password}")]
         public IActionResult adminAutorization(string email, string password)
         {

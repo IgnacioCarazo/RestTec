@@ -7,27 +7,23 @@ using System.Threading.Tasks;
 using WebApp.Api.Data;
 using WebApp.Api.Model;
 
+/// <summary>
+/// Clase que maneja las peticiones y respuestas de los Clientes
+/// </summary>
 namespace WebApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
+    
+    
     public class ClientController : ControllerBase
     {
-        /*
-        List<Client> clients = new List<Client>()
-        {
-            new Client(){name="Andres",primaryLastName="Barrantes",secondLastName="Herrera",iD=123,email="andres@gmail.com",password="andres123",
-                province="San Josee",celNum=8854,birthday="26/11/1996",canton="Central",district="Pavas" },
-            new Client(){name="Gerardo",primaryLastName="Barboza",secondLastName="Leon",iD=345,email="gerardo@gmail.com",password="gerardo345",
-                province="Cartado",celNum=8856,birthday="23/03/2001",canton="Central",district="Tres Rios" },
-            new Client(){name="Veronica",primaryLastName="Pacheco",secondLastName="Venegas",iD=567,email="veronica@gmail.com",password="veronica567",
-                province="Heredia",celNum=89875,birthday="3/05/1999",canton="Central",district="Heredia" },
-            new Client(){name="Lucia",primaryLastName="Prada",secondLastName="Gucci",iD=789,email="lucias@gmail.com",password="lucia789",
-                province="Alajuela",celNum=456576,birthday="9/2/2004",canton="Central",district="Trejos" }
-        };
-        */
-
-        //get de todos los clientes que existen
+      
+        /// <summary>
+        /// get de todos los clientes que existen
+        /// </summary>
+        /// <returns> Devuelve lista de clientes en formato json </returns>
         [HttpGet]
         public IActionResult Gets()
         {
@@ -36,6 +32,12 @@ namespace WebApp.Api.Controllers
         }
 
         //get de un cliente especifico segun el ID 
+        
+        /// <summary>
+        /// Obtiene un cliente especifico segun su ID
+        /// </summary>
+        /// <param name="id"> int que indica el id del cliente que se desea buscar </param>
+        /// <returns> Objeto cliente en formato json </returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -46,8 +48,12 @@ namespace WebApp.Api.Controllers
             }
             return Ok(_client);
         }
-
-        //metodo para verificar el acceso de un cliente
+        /// <summary>
+        /// metodo para verificar el acceso de un cliente
+        /// </summary>
+        /// <param name="email">string que indica el email del cliente</param>
+        /// <param name="password">string que indica la contrasena del cliente</param>
+        /// <returns>Cliente en formato json el cual tiene correo y contrasena enviados y estos coiciden</returns>
         [HttpGet("login/{email}/{password}")]
         public IActionResult Autorization(string email, string password)
         {
@@ -59,7 +65,11 @@ namespace WebApp.Api.Controllers
             return Ok(_client);
         }
 
-        //guarda un nuevo cliente
+        /// <summary>
+        /// guarda un nuevo cliente
+        /// </summary>
+        /// <param name="client">Cliente que se desea guarda en la base de datos</param>
+        /// <returns>retorna el cliente guardo en formato json</returns>
         [HttpPost("newClient")]
         public IActionResult SaveClient(Client client)
         {
@@ -76,8 +86,12 @@ namespace WebApp.Api.Controllers
             ClientData.writeData(_clients);
             return Ok(client);
         }
-        
-       //metodo para eliminar un cliente segun su id
+
+        /// <summary>
+        /// metodo para eliminar un cliente segun su id
+        /// </summary>
+        /// <param name="id">int que indica el id del cliente que desea eliminar de la base de datos</param>
+        /// <returns>string que indica que el cliente ha sido eliminado</returns>
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteClient(int id)
         {
@@ -92,6 +106,19 @@ namespace WebApp.Api.Controllers
                 return NotFound("No list found");
             }
             return Ok("Cliente Deleted Successully");
+        }
+
+        /// <summary>
+        /// metodo para editar un client existente
+        /// </summary>
+        /// <param name="client">client nuevo</param>
+        /// <returns>string que indica el cambio</returns>
+        [HttpPut("update")]
+        public IActionResult updateClient(Client client)
+        {
+            var clientList = ClientData.updateClient(client);
+            ClientData.writeData(clientList);
+            return Ok("Client Updated");
         }
     }
 }

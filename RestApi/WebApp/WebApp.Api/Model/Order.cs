@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.Api.Model
 {
+    /// <summary>
+    /// clase que modela la data de los pedidos
+    /// </summary>
     public class Order
     {
         //indica la fecha en la que se realizo el pedido

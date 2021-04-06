@@ -6,11 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Api.Model;
 
+/// <summary>
+/// clase que maneja toda la data de los platos
+/// </summary>
 namespace WebApp.Api.Data
 {
     public class RecipeData
     {
-        //metodo para modificar los datos de las recetas 
+        /// <summary>
+        /// metodo para modificar los datos de las recetas 
+        /// </summary>
+        /// <param name="recipes">lista de recipe a agregar</param>
+        /// <returns>int siempre 0</returns>
         static public int writeData(List<Recipe> recipes)
         {
             string strResultJson = JsonConvert.SerializeObject(recipes);
@@ -18,7 +25,10 @@ namespace WebApp.Api.Data
             return 0;
         }
 
-        //metodo para obtener todos los platos existentes
+        /// <summary>
+        /// metodo para obtener todos los platos existentes
+        /// </summary>
+        /// <returns>lista Recipe</returns>
         static public List<Recipe> getRecipeData()
         {
             string readFile = File.ReadAllText(@"Data/recipe.json");
@@ -26,7 +36,11 @@ namespace WebApp.Api.Data
             return recipeList;
         }
 
-        //metodo para obtener un plato especifico segun su nombre
+        /// <summary>
+        /// metodo para obtener un plato especifico segun su nombre
+        /// </summary>
+        /// <param name="name">string de la Recipe a obtener</param>
+        /// <returns>Recipe que se busca</returns>
         static public Recipe getRecipeData(string name)
         {
             string readFile = File.ReadAllText(@"Data/recipe.json");
@@ -35,7 +49,12 @@ namespace WebApp.Api.Data
             return _recipe;
         }
 
-        //metodo para verificar que no se repitan recetas
+        /// <summary>
+        /// metodo para verificar que no se repitan recetas
+        /// </summary>
+        /// <param name="recipeList">lista de Recipe</param>
+        /// <param name="addRecipe">Recipe que se desea agregar</param>
+        /// <returns>booleano que indica si se repite o no</returns>
         static public bool noDuplicated(List<Recipe> recipeList, Recipe addRecipe)
         {
             foreach (var recipe in recipeList)
@@ -48,7 +67,11 @@ namespace WebApp.Api.Data
             return true;
         }
 
-        //metodo para eliminar datos de un plato
+        /// <summary>
+        /// metodo para eliminar datos de un plato
+        /// </summary>
+        /// <param name="name">string del Recipe a eliminar </param>
+        /// <returns>nueva lista de Recipe</returns>
         static public List<Recipe> deleteData(string name)
         {
             string readFile = File.ReadAllText(@"Data/recipe.json");

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.Api.Model
 {
+    /// <summary>
+    /// clase que modela la data de los platos
+    /// </summary>
     public class Recipe
     {
         //indica el nombre del plato

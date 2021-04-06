@@ -6,10 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Api.Model;
 
+/// <summary>
+/// Clase que maneja toda la data de los pedidos
+/// </summary>
 namespace WebApp.Api.Data
 {
     public class OrderData
     {
+        /// <summary>
+        /// metodo para escribir en la base de datos de los pedidos
+        /// </summary>
+        /// <param name="orders">lista de Order que se desean aregar</param>
+        /// <returns>int siempre 0</returns>
         static public int writeData(List<Order> orders)
         {
             string strResultJson = JsonConvert.SerializeObject(orders);
@@ -17,13 +25,22 @@ namespace WebApp.Api.Data
             return 0;
         }
 
+        /// <summary>
+        /// metodo para obtener informacion de los pedidos
+        /// </summary>
+        /// <returns>lista Order en formato json</returns>
         static public List<Order> getOrderData()
         {
             string readFile = File.ReadAllText(@"Data/order.json");
             var orderList = JsonConvert.DeserializeObject<List<Order>>(readFile);
             return orderList;
         }
-
+        
+        /// <summary>
+        /// metodo para obtener un pedido especifico segun su id
+        /// </summary>
+        /// <param name="id">int que indica el id del pedido a buscar</param>
+        /// <returns>Order se busca</returns>
         static public Order getOrderData(int id)
         {
             string readFile = File.ReadAllText(@"Data/order.json");
@@ -32,18 +49,11 @@ namespace WebApp.Api.Data
             return _order;
         }
 
-        internal static bool noDuplicated(List<Order> orders, Order addOrder)
-        {
-            foreach (var order in orders)
-            {
-                if (order.orderID == addOrder.orderID)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
+        /// <summary>
+        /// metodo para eliminar un pedido
+        /// </summary>
+        /// <param name="id">id del pedido que se desea eliminar</param>
+        /// <returns>Nueva lista de Order</returns>
         static public List<Order> deleteData(int id)
         {
             string readFile = File.ReadAllText(@"Data/order.json");
@@ -55,6 +65,12 @@ namespace WebApp.Api.Data
             return orderList;
         }
 
+        /// <summary>
+        /// metodo para manejar informacion de los pedidos como asignar chef, monto total, tiempo de finalizacion a los pedidos
+        /// </summary>
+        /// <param name="chef">string del nombre del chef que toma un pedido</param>
+        /// <param name="orderID">int id del pedido que toma el chef</param>
+        /// <returns>Order con su nueva informacion</returns>
         static public Order manageOrder(string chef, int orderID)
         {
             var order = OrderData.getOrderData(orderID);
@@ -89,7 +105,11 @@ namespace WebApp.Api.Data
             return order;
         }
 
-
+        /// <summary>
+        /// metodo que indica si un int id se repite
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns>booleano que indica si hay duplicado de id</returns>
         static public bool generateID(int number)
         {
             var orderList = OrderData.getOrderData();
@@ -104,7 +124,10 @@ namespace WebApp.Api.Data
             return true;
         }
 
-
+        /// <summary>
+        /// metodo que genera un nuevo int aleatorio
+        /// </summary>
+        /// <returns>int aleatorio</returns>
         static public int randomNumber()
         {
             Random r = new Random();
